@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+      <h1 id="title"></h1>
+   <div id = "owner_form">
+      <form action='http://localhost:3000/owners/:id' method='POST'>
+        <div>
+          <label for='name'>Owner Name:</label>
+          <input type='text' id='name' name='name' placeholder="John Doe"/>
+        </div>
+        <div>
+          <label for='phone_number'>Phone Number:</label>
+          <input type='text' id='phone_number' name='phone_number' placeholder="John Doe"/>
+        </div>
+        <div>
+          <label for='real_estate_agent'>Listing Agent:</label>
+          <input type='text' id='real_estate_agent' name='real_estate_agent' placeholder="John Doe"/>
+        </div>
+        <div>
+          <input type='submit' id='prop_submit' value='Submit'/>
+        </div>
+      </form>
+    
+    </div>
+
+    
+      <div id = "listing_form">
+    <form action='http://localhost:3000/properties/:id' method='POST'>
+      <div>
+        <label for='name'>Owner Name:</label>
+        <input type='text' id='name' name='name' placeholder="John Doe"/>
+      </div>
+      <div>
+        <label for='address'>Street Address:</label>
+        <input type='text' id='address' name='address' placeholder="123 Elm Street"/>
+      </div>
+      <div>
+        <label for='state'>State:</label><br>
+        <input type='text' id='state' name='state' placeholder="Texas"/>
+      </div>
+      <div>
+        <label for='sale_price'>Listing Price:</label><br>
+        <input type='text' id='sale_price' name='sale_price' placeholder="$500,000"/>
+      </div>
+      <div>
+        <input type='submit' id='owner_submit' value='Submit'/>
+      </div>
+    </form>
+   </div>
+   <main id='listings'>
+
+
+   </main>
+   <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
+  </body>
+</html>
