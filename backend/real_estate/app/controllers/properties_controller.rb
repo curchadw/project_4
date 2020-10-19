@@ -21,10 +21,11 @@ class PropertiesController < ApplicationController
 
     def create
         property = Property.create(
-            address: address,
-            state: state,
-            sale_price: sale_price ,
-            owner: Owner.find(params[:owner_id])
+            prop_params
+            # address: address,
+            # state: state,
+            # sale_price: sale_price ,
+            # owner: Owner.find(params[:name])
         )
 
         if property.save
@@ -35,8 +36,8 @@ class PropertiesController < ApplicationController
     end
 
     private
-    # def prop_params
-    #     params.require(:property).permit(:address, :state, :sale_price, :owner_id)
-    # end
+    def prop_params
+        params.permit(:address, :state, :sale_price, :owner_id, :id)
+    end
 
 end

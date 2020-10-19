@@ -10,22 +10,24 @@ class OwnersController < ApplicationController
 
     def create
         
-        owner = Owner.create(
-            name: name,
-            phone_number: phone_number,
-            real_estate_agent: real_estate_agent
-        )
+            owner = Owner.create_or_find_by(owner_params)
 
-        if owner.save
-            render json: owner
-        else
-            render json: { error: "Couldn't save"}, status: 403
-        end
+            if owner.save
+                render json: owner
+            end
+        
+
     end
     
     
     def show
         owner = Owner.find(params[:id])
         render json: owner
+    end
+
+
+    private 
+    def owner_params
+        params.permit(:name,:phone_number,:real_estate_agent)
     end
 end
