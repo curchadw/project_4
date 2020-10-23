@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="styles.css">
-    <script type="text/javascript" src="src/index.js"></script>
+    
   </head>
   <body>
       <h1 id="title"></h1>
    <div id = "owner_form">
-      <form action='http://localhost:3000/owners/:id' method='POST'>
+      <form action='http://localhost:3000/owners/' method='POST'>
         <div>
           <label for='name'>Owner Name:</label>
           <input type='text' id='name' name='name' placeholder="John Doe"/>
@@ -23,7 +23,7 @@
           <input type='text' id='real_estate_agent' name='real_estate_agent' placeholder="John Doe"/>
         </div>
         <div>
-          <input type='submit' id='owner_submit' value='Submit'/>
+          <input type='submit' id='owner_submit' onclick='addOwner()' value='Submit'/>
         </div>
       </form>
     
@@ -31,10 +31,10 @@
 
     
       <div id = "listing_form">
-    <form action='http://localhost:3000/properties/:id' method='POST'>
+    <form action='http://localhost:3000/properties' method='POST'>
       <div>
         <label for='name'>Owner Name:</label>
-        <select id="sel">
+        <select id='owner_id' name='owner_id'>
           
         </select>
       </div>
@@ -51,15 +51,15 @@
         <input type='text' id='sale_price' name='sale_price' placeholder="$500,000"/>
       </div>
       <div>
-        <input type='submit' id='prop_submit' value='Submit'/>
+        <input type='submit' id='prop_submit' onclick="addlisting()" value='Submit'/>
       </div>
     </form>
    </div>
    <main id='listings'>
-    <button id='btn'>Click me</button>  
+      
 
    </main>
    
- 
+   <script src="src/index.js" type="text/javascript"></script>
   </body>
 </html>

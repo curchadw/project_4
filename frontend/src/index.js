@@ -10,52 +10,58 @@ const PROPERTIES_URL = `${BASE_URL}/properties`
 
 document.addEventListener('DOMContentLoaded',() => {
     
-    let btn = document.getElementById('btn')
-    btn.addEventListener('click',()=>{
-        alert('hi');
-    })
+    alert('Test')
+    console.log('Test')
     
    });
 
 
-
-
-//    function addListing() {
-
-//     return fetch(PROPERTIES_URL, {
-//         method: 'POST',
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Accept": "application/json"
-//         },
-//         body: JSON.stringify({ 'owner_id': ownerId })
-//     })
-//         .then((resp) => resp.json())
-//         .then((json) => { console.log(json); })
-//         .catch((error) => console.log(error));
-
-// }
-
-
-//    const addOwner = () => {
-
-//     return fetch(OWNERS_URL,{
-//         method: 'POST',
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Accept": "application/json" 
-//         },
-//         body:JSON.stringify({'owner_id': ownerId})
-//     })
-//     .then((resp) => resp.json())
-//     .then((json) =>{console.log(json)})
-//     .catch((error) =>console.log(error))
-
-// }
+   const ownerBtn = document.getElementById('owner_submit')
+   ownerBtn.addEventListener('submit',(e)=>{
+       e.preventDefault()
+   })
+   const propBtn = document.getElementById('prop_submit')
 
 
 
-let dropdown = document.getElementById('sel');
+   
+
+   function addListing() {
+
+    return fetch(PROPERTIES_URL, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({ 'owner_id': ownerId })
+    })
+        .then((resp) => resp.json())
+        .then((json) => { console.log(json); })
+        .catch((error) => console.log(error));
+
+}
+
+
+   const addOwner = () => {
+
+    return fetch(OWNERS_URL,{
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json" 
+        },
+        body:JSON.stringify({'owner_id': ownerId})
+    })
+    .then((resp) => resp.json())
+    .then((json) =>{console.log(json)})
+    .catch((error) =>console.log(error))
+
+}
+
+
+
+let dropdown = document.getElementById('owner_id');
 dropdown.length = 0;
 
 let defaultOption = document.createElement('option');
@@ -79,6 +85,7 @@ fetch(url)
             for (let i = 0; i < data.length; i++) {
               option = document.createElement('option');
                 option.text = data[i].name;
+                option.value = data[i].id; 
                 dropdown.add(option);
             }    
           }); 
@@ -88,6 +95,9 @@ fetch(url)
     .catch(function(err) {  
         console.error('Fetch Error -', err);  
       });
+
+
+      const addProperty = 
 
 
 

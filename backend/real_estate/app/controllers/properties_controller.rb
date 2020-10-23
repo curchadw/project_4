@@ -21,23 +21,20 @@ class PropertiesController < ApplicationController
 
     def create
         property = Property.create(
-            prop_params
-            # address: address,
-            # state: state,
-            # sale_price: sale_price ,
-            # owner: Owner.find(params[:name])
+            prop_params,
+            
         )
 
         if property.save
             render json: property
         else
-            render json: { error: "Couldn't save"}, status: 403
+            render json: { error: "Couldn't save"}
         end
     end
 
     private
     def prop_params
-        params.permit(:address, :state, :sale_price, :owner_id, :id)
+        params.permit(:address, :state, :sale_price, :owner_id, :owner_id=>[])
     end
 
 end
