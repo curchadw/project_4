@@ -13,3 +13,16 @@ form {
     #owner_form{
         margin: 2em;
     }
+
+    #container{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+
+    }
+
+    main{
+        border-top: 1px solid black;
+        width: 100%;
+    }
+    

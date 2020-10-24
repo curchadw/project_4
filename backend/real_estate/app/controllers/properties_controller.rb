@@ -20,8 +20,10 @@ class PropertiesController < ApplicationController
     end
 
     def create
+        
         property = Property.create(
-            prop_params,
+            
+        prop_params
             
         )
 
@@ -34,7 +36,7 @@ class PropertiesController < ApplicationController
 
     private
     def prop_params
-        params.permit(:address, :state, :sale_price, :owner_id, :owner_id=>[])
+        params.permit(:address, :state, :sale_price, :owner_id)
     end
 
 end
