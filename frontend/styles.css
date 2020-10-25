@@ -14,15 +14,24 @@ form {
         margin: 2em;
     }
 
-    #container{
+    /* #container{
         display: flex;
         justify-content: center;
         align-items: flex-start;
 
-    }
+    } */
 
     main{
         border-top: 1px solid black;
         width: 100%;
     }
+
+    div.card {
+        background-color: #eeeeee;
+        height: 250px;
+        width: 300px;
+        box-shadow: 10px 10px grey;
+        padding: 10px;
+        border-radius: 10px;
+      }
     

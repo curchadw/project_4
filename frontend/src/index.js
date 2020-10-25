@@ -3,11 +3,11 @@ const OWNERS_URL = `${BASE_URL}/owners`
 const PROPERTIES_URL = `${BASE_URL}/properties`
 
 
-document.addEventListener('DOMContentLoaded',() => {
-    
-    console.log('Test')
-    
-   });
+document.addEventListener('DOMContentLoaded',(event) => {
+  getListings();
+  event.preventDefault();    
+},false);
+
 
 
 let dropdown = document.getElementById('owner_id');
@@ -20,7 +20,7 @@ dropdown.add(defaultOption);
 dropdown.selectedIndex = 0;
 
 
-
+//this fetched (GET) owners for my dropdown
 fetch(OWNERS_URL)
     .then((resp) =>{
         if(resp.status !== 200){
@@ -49,29 +49,42 @@ fetch(OWNERS_URL)
         console.error('Fetch Error -', err);  
       });
 
-
+//-----------------------------------------------------------------
   const listingbtn = document.getElementById('prop_submit')
+  const listContainer = document.getElementById('listings')
+  const deleteBtn = document.createElement('button')
+
+//Will grab the listings in db/json and will display the record/listing on page
+
+const getListings = () => {
+  return fetch(PROPERTIES_URL)
+  .then(res => res.json())
+}
+getListings()
+    .then(json => {
+      // debugger
+      json.forEach(listing =>{
+        let listingCard = document.createElement('div')
+        listingCard.setAttribute('class','card')
+        listingCard.dataset.id = listing.id
+        listingCard.innerHTML = showListCard(listing)
+        //delete listing button
+        listingCard.addEventListener('click',deleteBtn)
+        listContainer.appendChild(listingCard)
+      })
+    })
 
 
-  const displayListings = () => {
-    
-
+//The actual rendering of the listing card
+const showListCard = (listing) => {
+    return `<p>${listing.address}</p>
+            <p>${listing.state}</p>
+            <p>${listing.sale_price}</p>
+            <p>${listing.owner_id}</p>
+            <button>Remove Listing</button>`
 }
 
-  listingbtn.addEventListener('submit',()=>{})
-
-      const addlisting = (ownerId) =>{
-          return fetch(PROPERTIES_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              'owner_id': ownerId
-            })
-          }).then(res => res.json())
-      }
-
+    
 
   
 
