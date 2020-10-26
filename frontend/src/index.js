@@ -52,7 +52,7 @@ fetch(OWNERS_URL)
 //-----------------------------------------------------------------
   const listingbtn = document.getElementById('prop_submit')
   const listContainer = document.getElementById('listings')
-  const deleteBtn = document.createElement('button')
+  
 
 //Will grab the listings in db/json and will display the record/listing on page
 
@@ -60,19 +60,6 @@ const getListings = () => {
   return fetch(PROPERTIES_URL)
   .then(res => res.json())
 }
-getListings()
-    .then(json => {
-      // debugger
-      json.forEach(listing =>{
-        let listingCard = document.createElement('div')
-        listingCard.setAttribute('class','card')
-        listingCard.dataset.id = listing.id
-        listingCard.innerHTML = showListCard(listing)
-        //delete listing button
-        listingCard.addEventListener('click',deleteBtn)
-        listContainer.appendChild(listingCard)
-      })
-    })
 
 
 //The actual rendering of the listing card
@@ -80,9 +67,41 @@ const showListCard = (listing) => {
     return `<p>${listing.address}</p>
             <p>${listing.state}</p>
             <p>${listing.sale_price}</p>
-            <p>${listing.owner_id}</p>
-            <button>Remove Listing</button>`
+            <p>${listing.owner_id}</p>`
 }
+
+const deleteListing = (listingId) =>{
+  return fetch(`${PROPERTIES_URL}/${listingId}`, {
+    method: "DELETE",
+  })
+  .then(res => res.json())
+}
+
+
+
+getListings()
+    .then(json => {
+      // debugger
+      json.forEach(listing =>{
+        let listingCard = document.createElement('div')
+        
+        listingCard.setAttribute('class','card')
+        listingCard.dataset.id = listing.id
+        listingCard.innerHTML = showListCard(listing)
+        let deleteBtn = document.createElement('button')
+        deleteBtn.setAttribute('id','delete')
+        deleteBtn.innerHTML = 'Delete Listing'
+        deleteBtn.addEventListener('click', (event)=>{
+          let listingId = parseInt(event.target.dataset.listingId)
+          event.target.parentNode.remove()
+          deleteListing(listingId)
+        })
+        listingCard.appendChild(deleteBtn)
+        listContainer.appendChild(listingCard)
+        
+      })
+    })
+
 
     
 
