@@ -22,18 +22,18 @@ form {
     } */
 
     #listings{
-        border-top: 1px solid black;
-        width: 100%;
+       
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         align-content: center;
+        justify-content: space-evenly;
         padding: 10px;
     }
 
     div.card {
         /* background-color: #eeeeee; */
-        height: 150px;
+        height: 200px;
         width: 150px;
         padding: 5px;
         border: 2px solid black;

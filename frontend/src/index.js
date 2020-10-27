@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded',(event) => {
 
 
 
+
 let dropdown = document.getElementById('owner_id');
 dropdown.length = 0;
 
@@ -54,6 +55,31 @@ fetch(OWNERS_URL)
   const listContainer = document.getElementById('listings')
   
 
+  // const createListing = (ownerId) => {
+  //   return fetch(PROPERTIES_URL, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       'owner_id': ownerId
+  //     })
+  //   })
+  //   .then(res => res.json())
+  // }
+
+  const ajaxgo = () => {
+      var data = new FormData();
+      data.append
+  }
+
+  listingbtn.addEventListener('click',(event)=>{
+    createListing(parseInt(event.target.dataset.ownerId))
+    .then(res=>res.json())
+    .then(json => {
+     showListCard(json)
+    })
+  })
 //Will grab the listings in db/json and will display the record/listing on page
 
 const getListings = () => {

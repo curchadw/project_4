@@ -34,6 +34,16 @@ class PropertiesController < ApplicationController
         end
     end
 
+    def destroy
+        property = Property.find(params[:id])
+        unless property.nil?
+          property.destroy
+          render json: property
+        else
+          render json: { error: "Property not found" }, status: 404
+        end
+      end
+
     private
     def prop_params
         params.permit(:address, :state, :sale_price, :owner_id)

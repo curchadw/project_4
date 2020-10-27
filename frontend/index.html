@@ -10,7 +10,7 @@
       <h1 id="title"></h1>
   <div id = 'container'>
    <div id = "owner_form" class ='forms'>
-      <form action='http://localhost:3000/owners/' method='POST'>
+      <form action='http://localhost:3000/owners/' method='POST' onsubmit='return ajaxgo()'>
         <div>
           <label for='name'>Owner Name:</label>
           <input type='text' id='name' name='name' placeholder="John Doe"/>
