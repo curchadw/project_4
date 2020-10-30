@@ -10,18 +10,18 @@
       <h1 id="title"></h1>
   <div id = 'container'>
    <div id = "owner_form" class ='forms'>
-      <form action='http://localhost:3000/owners/' method='POST' onsubmit='return ajaxgo()'>
+      <form action='http://localhost:3000/owners/' method='POST' onsubmit='return fetchgo()'>
         <div>
           <label for='name'>Owner Name:</label>
-          <input type='text' id='name' name='name' placeholder="John Doe"/>
+          <input type='text' id='name' name='name' placeholder="John Doe" required/>
         </div>
         <div>
           <label for='phone_number'>Phone Number:</label>
-          <input type='text' id='phone_number' name='phone_number' placeholder="John Doe"/>
+          <input type='text' id='phone_number' name='phone_number' placeholder="John Doe" required/>
         </div>
         <div>
           <label for='real_estate_agent'>Listing Agent:</label>
-          <input type='text' id='real_estate_agent' name='real_estate_agent' placeholder="John Doe"/>
+          <input type='text' id='real_estate_agent' name='real_estate_agent' placeholder="John Doe" required/>
         </div>
         <div>
           <input type='submit' id='owner_submit' value='Submit'/>
@@ -32,24 +32,24 @@
 
     
       <div id = "listing_form" class ='forms'>
-    <form action='http://localhost:3000/properties/' method='POST'>
+    <form>
       <div>
         <label for='name'>Owner Name:</label>
-        <select id='owner_id' name='owner_id'>
+        <select id='owner_id' name='owner_id' required/>
           
         </select>
       </div>
       <div>
         <label for='address'>Street Address:</label>
-        <input type='text' id='address' name='address' placeholder="123 Elm Street"/>
+        <input type='text' id='address' name='address' placeholder="123 Elm Street"required//>
       </div>
       <div>
         <label for='state'>State:</label><br>
-        <input type='text' id='state' name='state' placeholder="Texas"/>
+        <input type='text' id='state' name='state' placeholder="Texas"required//>
       </div>
       <div>
         <label for='sale_price'>Listing Price:</label><br>
-        <input type='text' id='sale_price' name='sale_price' placeholder="$500,000"/>
+        <input type='text' id='sale_price' name='sale_price' placeholder="$500,000"required//>
       </div>
       <div>
         <input type='submit' id='prop_submit'  value='Submit'/>

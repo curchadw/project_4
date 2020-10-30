@@ -2,6 +2,18 @@ const BASE_URL = "http://localhost:3000"
 const OWNERS_URL = `${BASE_URL}/owners`
 const PROPERTIES_URL = `${BASE_URL}/properties`
 
+//-------------------------------------------------------------
+const name = document.getElementById('name').value
+const phone = document.getElementById('phone_number').value
+const agent = document.getElementById('real_estate_agent').value
+const address = document.getElementById('address').value
+const state = document.getElementById('state').value
+const price = document.getElementById('sale_price').value
+const owner = document.getElementById('owner_id').value
+let listings = document.getElementById('listings')
+let addListing = false
+const listForm = document.getElementById('listing_form')
+
 
 document.addEventListener('DOMContentLoaded',(event) => {
   getListings();
@@ -49,37 +61,73 @@ fetch(OWNERS_URL)
     .catch(function(err) {  
         console.error('Fetch Error -', err);  
       });
+//---------------------------------------------------------------------------------------------------
 
-//-----------------------------------------------------------------
+const postListing = (list_data) => {
+  fetch(PROPERTIES_URL,{
+    method: 'POST',
+    header: {
+      'Content-Type': 'application/json',
+        "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      "address": list_data.address.value,
+      "state": list_data.state.value,
+      "sale_price": list_data.sale_price.value,
+      "owner_id": list_data.owner_id
+
+    })
+  }).then(res => res.json()).then((list_obj) => {
+    let new_listing = renderListing(list_obj)
+    listings.append(new_listing)
+  })
+}
+
+
+const renderListing = (listing) => {
+  let listingCard = document.createElement('div')
+        
+  listingCard.setAttribute('class','card')
+  listingCard.dataset.id = listing.id
+  listingCard.innerHTML = showListCard(listing)
+  //---Delete Button
+  let deleteBtn = document.createElement('button')
+  deleteBtn.setAttribute('id','delete')
+  deleteBtn.innerHTML = 'Delete Listing'
+  deleteBtn.addEventListener('click', (event)=>{
+    let listingId = parseInt(event.target.dataset.listingId)
+    event.target.parentNode.remove()
+    deleteListing(listingId)
+  })
+  listingCard.appendChild(deleteBtn)
+  listings.appendChild(listingCard)
+  
+}
+
+
+
+//---------------------------------------------------------------------------------------------------
   const listingbtn = document.getElementById('prop_submit')
   const listContainer = document.getElementById('listings')
-  
 
-  // const createListing = (ownerId) => {
-  //   return fetch(PROPERTIES_URL, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       'owner_id': ownerId
-  //     })
-  //   })
-  //   .then(res => res.json())
-  // }
 
-  const ajaxgo = () => {
-      var data = new FormData();
-      data.append
+  listingbtn.addEventListener('click',()=>{
+    addListing = !addListing
+    if(addListing){
+    
+    listForm.addEventListener('submit',event => {
+      event.preventDefault()
+      postListing(event.target)
+    })
+  }else{
+    listForm.style.display = 'none'
   }
 
-  listingbtn.addEventListener('click',(event)=>{
-    createListing(parseInt(event.target.dataset.ownerId))
-    .then(res=>res.json())
-    .then(json => {
-     showListCard(json)
-    })
+   
   })
+
+
+  
 //Will grab the listings in db/json and will display the record/listing on page
 
 const getListings = () => {
@@ -88,12 +136,14 @@ const getListings = () => {
 }
 
 
-//The actual rendering of the listing card
+// The actual rendering of the listing card
 const showListCard = (listing) => {
-    return `<p>${listing.address}</p>
-            <p>${listing.state}</p>
-            <p>${listing.sale_price}</p>
-            <p>${listing.owner_id}</p>`
+    return `<p>Address: ${listing.address}</p>
+            <p>State: ${listing.state}</p>
+            <p>Sale Price:${listing.sale_price}</p>
+            <p>Owner:${listing.owner.name}</p>
+            <p>Phone:${listing.owner.phone_number}</p>
+            <p>Agent:${listing.owner.real_estate_agent}</p>`
 }
 
 const deleteListing = (listingId) =>{
@@ -105,31 +155,19 @@ const deleteListing = (listingId) =>{
 
 
 
-getListings()
-    .then(json => {
-      // debugger
-      json.forEach(listing =>{
-        let listingCard = document.createElement('div')
-        
-        listingCard.setAttribute('class','card')
-        listingCard.dataset.id = listing.id
-        listingCard.innerHTML = showListCard(listing)
-        let deleteBtn = document.createElement('button')
-        deleteBtn.setAttribute('id','delete')
-        deleteBtn.innerHTML = 'Delete Listing'
-        deleteBtn.addEventListener('click', (event)=>{
-          let listingId = parseInt(event.target.dataset.listingId)
-          event.target.parentNode.remove()
-          deleteListing(listingId)
-        })
-        listingCard.appendChild(deleteBtn)
-        listContainer.appendChild(listingCard)
-        
-      })
-    })
-
-
+getListings().then(listings => {
+  listings.forEach(listing=>{
+    renderListing(listing)
+  })
+})
     
+
+
+
+
+
+   
+   
 
   
 

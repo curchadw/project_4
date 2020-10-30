@@ -14,12 +14,7 @@ form {
         margin: 2em;
     }
 
-    /* #container{
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-
-    } */
+    
 
     #listings{
        
@@ -31,13 +26,13 @@ form {
         padding: 10px;
     }
 
-    div.card {
+    .card {
         /* background-color: #eeeeee; */
-        height: 200px;
-        width: 150px;
+        height: 300px;
+        width: 200px;
         padding: 5px;
         border: 2px solid black;
         border-radius: 10px;
-        margin: 3px;
+        
       }
     
