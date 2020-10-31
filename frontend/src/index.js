@@ -64,20 +64,16 @@ fetch(OWNERS_URL)
 //---------------------------------------------------------------------------------------------------
 
 const postListing = (list_data) => {
+  debugger
   fetch(PROPERTIES_URL,{
     method: 'POST',
     header: {
       'Content-Type': 'application/json',
         "Accept": "application/json"
     },
-    body: JSON.stringify({
-      "address": list_data.address.value,
-      "state": list_data.state.value,
-      "sale_price": list_data.sale_price.value,
-      "owner_id": list_data.owner_id
-
-    })
+    body: JSON.stringify(list_data)
   }).then(res => res.json()).then((list_obj) => {
+    debugger
     let new_listing = renderListing(list_obj)
     listings.append(new_listing)
   })
@@ -86,7 +82,7 @@ const postListing = (list_data) => {
 
 const renderListing = (listing) => {
   let listingCard = document.createElement('div')
-        
+   
   listingCard.setAttribute('class','card')
   listingCard.dataset.id = listing.id
   listingCard.innerHTML = showListCard(listing)
@@ -111,7 +107,7 @@ const renderListing = (listing) => {
   const listContainer = document.getElementById('listings')
 
 
-  listingbtn.addEventListener('click',()=>{
+  listingbtn.addEventListener('submit',()=>{
     addListing = !addListing
     if(addListing){
     
@@ -119,10 +115,7 @@ const renderListing = (listing) => {
       event.preventDefault()
       postListing(event.target)
     })
-  }else{
-    listForm.style.display = 'none'
   }
-
    
   })
 
@@ -138,12 +131,14 @@ const getListings = () => {
 
 // The actual rendering of the listing card
 const showListCard = (listing) => {
+   
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price:${listing.sale_price}</p>
             <p>Owner:${listing.owner.name}</p>
             <p>Phone:${listing.owner.phone_number}</p>
-            <p>Agent:${listing.owner.real_estate_agent}</p>`
+            <p>Agent:${listing.owner.real_estate_agent}</p>
+            `
 }
 
 const deleteListing = (listingId) =>{
@@ -156,6 +151,7 @@ const deleteListing = (listingId) =>{
 
 
 getListings().then(listings => {
+  
   listings.forEach(listing=>{
     renderListing(listing)
   })
