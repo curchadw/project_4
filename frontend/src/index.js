@@ -63,21 +63,23 @@ fetch(OWNERS_URL)
       });
 //---------------------------------------------------------------------------------------------------
 
-const postListing = (list_data) => {
+// const postListing = (list_data) => {
   
-  fetch(PROPERTIES_URL,{
-    method: 'POST',
-    header: {
-      'Content-Type': 'application/json',
-        "Accept": "application/json"
-    },
-    body: JSON.stringify(list_data)
-  }).then(res => res.json()).then((list_data) => {
+
+
+//   fetch(PROPERTIES_URL,{
+//     method: 'POST',
+//     header: {
+//       'Content-Type': 'application/json',
+//         "Accept": "application/json"
+//     },
+//     body: JSON.stringify(list_data)
+//   }).then(res => res.json()).then((list_data) => {
     
-    let new_listing = renderListing(list_data)
-    listings.append(new_listing)
-  })
-}
+//     let new_listing = renderListing(list_data)
+//     listings.append(new_listing)
+//   })
+// }
 
 
 const renderListing = (listing) => {
@@ -106,16 +108,24 @@ const renderListing = (listing) => {
   const listContainer = document.getElementById('listings')
 
 
-  listingbtn.addEventListener('click',()=>{
-    //addListing = !addListing
-    //if(addListing){
-    listForm.addEventListener('submit',event => {
-      // event.preventDefault()
-      postListing(event.target)
-    })
-  //}
+   listingbtn.addEventListener('click',()=>{
    
+    listForm.addEventListener('submit',event => {
+      event.preventDefault()
+      // postListing(event.target)
+      const formData = new FormData();
+
+      fetch(PROPERTIES_URL,{
+        method: 'POST',
+        body: JSON.stringify(formData)
+      }).then(res => res.json()).then((list_data) => {
+        debugger
+        let new_listing = renderListing(list_data)
+        listings.append(new_listing)
+      })
   })
+
+})
 
 
   
@@ -132,9 +142,7 @@ const showListCard = (listing) => {
    
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
-            <p>Sale Price:${listing.sale_price}</p>
-            
-            `
+            <p>Sale Price:${listing.sale_price}</p>`
 }
 
 const deleteListing = (listingId) =>{
