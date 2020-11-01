@@ -64,7 +64,7 @@ fetch(OWNERS_URL)
 //---------------------------------------------------------------------------------------------------
 
 const postListing = (list_data) => {
-  debugger
+  
   fetch(PROPERTIES_URL,{
     method: 'POST',
     header: {
@@ -72,9 +72,9 @@ const postListing = (list_data) => {
         "Accept": "application/json"
     },
     body: JSON.stringify(list_data)
-  }).then(res => res.json()).then((list_obj) => {
-    debugger
-    let new_listing = renderListing(list_obj)
+  }).then(res => res.json()).then((list_data) => {
+    
+    let new_listing = renderListing(list_data)
     listings.append(new_listing)
   })
 }
@@ -82,7 +82,6 @@ const postListing = (list_data) => {
 
 const renderListing = (listing) => {
   let listingCard = document.createElement('div')
-   
   listingCard.setAttribute('class','card')
   listingCard.dataset.id = listing.id
   listingCard.innerHTML = showListCard(listing)
@@ -107,15 +106,14 @@ const renderListing = (listing) => {
   const listContainer = document.getElementById('listings')
 
 
-  listingbtn.addEventListener('submit',()=>{
-    addListing = !addListing
-    if(addListing){
-    
+  listingbtn.addEventListener('click',()=>{
+    //addListing = !addListing
+    //if(addListing){
     listForm.addEventListener('submit',event => {
-      event.preventDefault()
+      // event.preventDefault()
       postListing(event.target)
     })
-  }
+  //}
    
   })
 
@@ -135,9 +133,7 @@ const showListCard = (listing) => {
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price:${listing.sale_price}</p>
-            <p>Owner:${listing.owner.name}</p>
-            <p>Phone:${listing.owner.phone_number}</p>
-            <p>Agent:${listing.owner.real_estate_agent}</p>
+            
             `
 }
 

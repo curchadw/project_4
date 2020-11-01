@@ -20,7 +20,7 @@ class PropertiesController < ApplicationController
     end
 
     def create
-        
+        byebug
         property = Property.create(
             
         prop_params

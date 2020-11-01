@@ -28,6 +28,7 @@ form {
 
     .card {
         /* background-color: #eeeeee; */
+        margin-top: 20px;
         height: 300px;
         width: 200px;
         padding: 5px;
