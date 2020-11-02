@@ -13,6 +13,8 @@ const owner = document.getElementById('owner_id').value
 let listings = document.getElementById('listings')
 let addListing = false
 const listForm = document.getElementById('listing_form')
+const ownerForm = document.getElementById('owner_form')
+const ownerBtn = document.getElementById('owner_submit')
 
 
 document.addEventListener('DOMContentLoaded',(event) => {
@@ -20,12 +22,9 @@ document.addEventListener('DOMContentLoaded',(event) => {
   event.preventDefault();    
 },false);
 
-
-
-
 let dropdown = document.getElementById('owner_id');
-dropdown.length = 0;
 
+dropdown.length = 0;
 let defaultOption = document.createElement('option');
 defaultOption.text = 'Choose owner';
 defaultOption.value = '';
@@ -61,7 +60,25 @@ fetch(OWNERS_URL)
     .catch(function(err) {  
         console.error('Fetch Error -', err);  
       });
-//---------------------------------------------------------------------------------------------------
+
+      //-----Owner form submit data
+      ownerBtn.addEventListener('submit', (event)=>{
+        event.preventDefault()
+        const formData = new FormData(ownerForm)
+        fetch(OWNERS_URL,{
+          method: 'POST',
+          header: {
+            'Content-Type': 'application/json',
+              "Accept": "application/json"
+          },
+          body: JSON.stringify(formData)
+        }).then(resp => resp.json()).then((owner_data) => {
+          // dropdown.add(owner_data.name)
+         console.log(owner_data)
+        })
+      })
+
+      //---------------------------------------------------------------------------------------------------
 
 // const postListing = (list_data) => {
   
@@ -80,6 +97,7 @@ fetch(OWNERS_URL)
 //     listings.append(new_listing)
 //   })
 // }
+
 
 
 const renderListing = (listing) => {
@@ -107,25 +125,24 @@ const renderListing = (listing) => {
   const listingbtn = document.getElementById('prop_submit')
   const listContainer = document.getElementById('listings')
 
-
-   listingbtn.addEventListener('click',()=>{
+  
    
-    listForm.addEventListener('submit',event => {
+   
+    listingbtn.addEventListener('submit',event => {
       event.preventDefault()
       // postListing(event.target)
-      const formData = new FormData();
+      const formData_two = new FormData(listForm);
 
       fetch(PROPERTIES_URL,{
         method: 'POST',
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData_two)
       }).then(res => res.json()).then((list_data) => {
-        debugger
+        
         let new_listing = renderListing(list_data)
         listings.append(new_listing)
       })
   })
 
-})
 
 
   
