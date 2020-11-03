@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get'/properties', to: 'properties#index'
   get'/properties/:id', to: 'properties#show'
   get'/owners/:id', to: 'owners#show'
-  post'/properties/:id', to: 'properties#create'
-  post'/owners/:id', to: 'owners#create'
+  post'/properties/', to: 'properties#create'
+  post'/owners/', to: 'owners#create'
 end

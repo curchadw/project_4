@@ -62,8 +62,8 @@ fetch(OWNERS_URL)
       });
 
       //-----Owner form submit data
-      ownerBtn.addEventListener('submit', (event)=>{
-        event.preventDefault()
+      ownerForm.addEventListener('submit', ()=>{
+        // event.preventDefault()
         const formData = new FormData(ownerForm)
         fetch(OWNERS_URL,{
           method: 'POST',
@@ -71,10 +71,12 @@ fetch(OWNERS_URL)
             'Content-Type': 'application/json',
               "Accept": "application/json"
           },
-          body: JSON.stringify(formData)
-        }).then(resp => resp.json()).then((owner_data) => {
-          // dropdown.add(owner_data.name)
-         console.log(owner_data)
+          body: formData 
+        }).then(resp => resp.json()).then((owner_obj) => {
+        let option = document.createElement('option');
+        option = owner_obj.name;
+        dropdown.add(option)
+        console.log(owner_obj)
         })
       })
 
@@ -128,18 +130,19 @@ const renderListing = (listing) => {
   
    
    
-    listingbtn.addEventListener('submit',event => {
-      event.preventDefault()
+    listForm.addEventListener('submit',() =>{
+      // event.preventDefault()
       // postListing(event.target)
       const formData_two = new FormData(listForm);
 
       fetch(PROPERTIES_URL,{
         method: 'POST',
-        body: JSON.stringify(formData_two)
+        body: formData_two
       }).then(res => res.json()).then((list_data) => {
         
         let new_listing = renderListing(list_data)
         listings.append(new_listing)
+        // console.log(new_listing)
       })
   })
 
@@ -159,7 +162,10 @@ const showListCard = (listing) => {
    
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
-            <p>Sale Price:${listing.sale_price}</p>`
+            <p>Sale Price:${listing.sale_price}</p>
+            <p>Sale Price:${listing.owner.name}</p>
+            <p>Sale Price:${listing.owner.phone_number}</p>
+            <p>Sale Price:${listing.owner.real_estate_agent}</p>`
 }
 
 const deleteListing = (listingId) =>{

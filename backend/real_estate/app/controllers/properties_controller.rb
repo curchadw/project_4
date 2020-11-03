@@ -20,8 +20,8 @@ class PropertiesController < ApplicationController
     end
 
     def create
-        byebug
-        property = Property.create(prop_params)
+        
+        property = Property.create_or_find_by(prop_params)
 
         if property.save
             render json: property
