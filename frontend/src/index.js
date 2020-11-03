@@ -20,7 +20,7 @@ const ownerBtn = document.getElementById('owner_submit')
 document.addEventListener('DOMContentLoaded',(event) => {
   getListings();
   event.preventDefault();    
-},false);
+});
 
 let dropdown = document.getElementById('owner_id');
 
@@ -62,8 +62,8 @@ fetch(OWNERS_URL)
       });
 
       //-----Owner form submit data
-      ownerForm.addEventListener('submit', ()=>{
-        // event.preventDefault()
+      ownerForm.addEventListener('submit', (event)=>{
+        event.preventDefault()
         const formData = new FormData(ownerForm)
         fetch(OWNERS_URL,{
           method: 'POST',
@@ -130,8 +130,8 @@ const renderListing = (listing) => {
   
    
    
-    listForm.addEventListener('submit',() =>{
-      // event.preventDefault()
+    listForm.addEventListener('submit',(event) =>{
+      event.preventDefault()
       // postListing(event.target)
       const formData_two = new FormData(listForm);
 
