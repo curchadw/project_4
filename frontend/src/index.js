@@ -19,11 +19,11 @@ const ownerBtn = document.getElementById('owner_submit')
 
 document.addEventListener('DOMContentLoaded',(event) => {
   getListings();
-  event.preventDefault();    
+  event.preventDefault();  
+  
 });
 
 let dropdown = document.getElementById('owner_id');
-
 dropdown.length = 0;
 let defaultOption = document.createElement('option');
 defaultOption.text = 'Choose owner';
@@ -74,31 +74,14 @@ fetch(OWNERS_URL)
           body: formData 
         }).then(resp => resp.json()).then((owner_obj) => {
         let option = document.createElement('option');
-        option = owner_obj.name;
-        dropdown.add(option)
+        option.textContent = owner_obj.name;
+        dropdown.append(option)
         console.log(owner_obj)
         })
       })
 
       //---------------------------------------------------------------------------------------------------
 
-// const postListing = (list_data) => {
-  
-
-
-//   fetch(PROPERTIES_URL,{
-//     method: 'POST',
-//     header: {
-//       'Content-Type': 'application/json',
-//         "Accept": "application/json"
-//     },
-//     body: JSON.stringify(list_data)
-//   }).then(res => res.json()).then((list_data) => {
-    
-//     let new_listing = renderListing(list_data)
-//     listings.append(new_listing)
-//   })
-// }
 
 
 
