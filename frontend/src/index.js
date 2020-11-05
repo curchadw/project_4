@@ -75,8 +75,9 @@ fetch(OWNERS_URL)
         }).then(resp => resp.json()).then((owner_obj) => {
         let option = document.createElement('option');
         option.textContent = owner_obj.name;
-        dropdown.append(option)
+        dropdown.add(option)
         console.log(owner_obj)
+        ownerForm.reset()
         })
       })
 
@@ -100,7 +101,10 @@ const renderListing = (listing) => {
     deleteListing(listingId)
   })
   listingCard.appendChild(deleteBtn)
-  listings.appendChild(listingCard)
+  
+  return listings.appendChild(listingCard)
+  
+  
   
 }
 
@@ -115,7 +119,7 @@ const renderListing = (listing) => {
    
     listForm.addEventListener('submit',(event) =>{
       event.preventDefault()
-      // postListing(event.target)
+      
       const formData_two = new FormData(listForm);
 
       fetch(PROPERTIES_URL,{
@@ -125,6 +129,7 @@ const renderListing = (listing) => {
         
         let new_listing = renderListing(list_data)
         listings.append(new_listing)
+        listForm.reset()
         // console.log(new_listing)
       })
   })
@@ -146,9 +151,9 @@ const showListCard = (listing) => {
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price:${listing.sale_price}</p>
-            <p>Sale Price:${listing.owner.name}</p>
-            <p>Sale Price:${listing.owner.phone_number}</p>
-            <p>Sale Price:${listing.owner.real_estate_agent}</p>`
+            <p>Owner:${listing.owner.name}</p>
+            <p>Phone:${listing.owner.phone_number}</p>
+            <p>Agent:${listing.owner.real_estate_agent}</p>`
 }
 
 const deleteListing = (listingId) =>{
