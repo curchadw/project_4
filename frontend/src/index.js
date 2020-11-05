@@ -128,8 +128,9 @@ const renderListing = (listing) => {
       }).then(res => res.json()).then((list_data) => {
         
         let new_listing = renderListing(list_data)
-        listings.append(new_listing)
         listForm.reset()
+        listings.append(new_listing)
+        
         // console.log(new_listing)
       })
   })
@@ -151,9 +152,9 @@ const showListCard = (listing) => {
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price:${listing.sale_price}</p>
-            <p>Owner:${listing.owner.name}</p>
-            <p>Phone:${listing.owner.phone_number}</p>
-            <p>Agent:${listing.owner.real_estate_agent}</p>`
+            <p>Owner:${listing.owner['name']}</p>
+            <p>Phone:${listing.owner['phone_number']}</p>
+            <p>Agent:${listing.owner['real_estate_agent']}</p>`
 }
 
 const deleteListing = (listingId) =>{

@@ -22,7 +22,7 @@ class PropertiesController < ApplicationController
     def create
         
         property = Property.create_or_find_by(prop_params)
-
+        byebug
         if property.save
             render json: property
         else
