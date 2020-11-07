@@ -9,11 +9,11 @@ class OwnersController < ApplicationController
     end
 
     def create
-        
-            @owner = Owner.create(owner_params)
+            
+            owner = Owner.create(owner_params)
 
-            if @owner.save
-                render json: @owner
+            if owner.save
+                render json: owner
             end
         
 

@@ -20,10 +20,10 @@ class PropertiesController < ApplicationController
     end
 
     def create
-        
+        byebug
         property = Property.create(prop_params)
-        prop_params[:owner_id] = @owner.id
-        if property.save!
+        prop_params[:owner_id] = owner.id
+        if property.save
             render json: property
         else
             render json: { error: "Couldn't save"}
