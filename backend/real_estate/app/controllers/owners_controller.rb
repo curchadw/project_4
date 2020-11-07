@@ -10,10 +10,10 @@ class OwnersController < ApplicationController
 
     def create
         
-            owner = Owner.create_or_find_by(owner_params)
+            @owner = Owner.create(owner_params)
 
-            if owner.save
-                render json: owner
+            if @owner.save
+                render json: @owner
             end
         
 
@@ -28,6 +28,6 @@ class OwnersController < ApplicationController
 
     private 
     def owner_params
-        params.permit(:name,:phone_number,:real_estate_agent)
+        params.permit(:id,:name,:phone_number,:real_estate_agent)
     end
 end

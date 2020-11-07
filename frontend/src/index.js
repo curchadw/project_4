@@ -1,6 +1,6 @@
 const BASE_URL = "http://localhost:3000"
-const OWNERS_URL = `${BASE_URL}/owners`
-const PROPERTIES_URL = `${BASE_URL}/properties`
+const OWNERS_URL = `${BASE_URL}/owners/`
+const PROPERTIES_URL = `${BASE_URL}/properties/`
 
 //-------------------------------------------------------------
 const name = document.getElementById('name').value
@@ -11,10 +11,11 @@ const state = document.getElementById('state').value
 const price = document.getElementById('sale_price').value
 const owner = document.getElementById('owner_id').value
 let listings = document.getElementById('listings')
-let addListing = false
+
 const listForm = document.getElementById('listing_form')
 const ownerForm = document.getElementById('owner_form')
 const ownerBtn = document.getElementById('owner_submit')
+
 
 
 document.addEventListener('DOMContentLoaded',(event) => {
@@ -152,10 +153,15 @@ const showListCard = (listing) => {
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price:${listing.sale_price}</p>
-            <p>Owner:${listing.owner['name']}</p>
+            <p>Owner:${listing.owner.name}</p>
             <p>Phone:${listing.owner['phone_number']}</p>
             <p>Agent:${listing.owner['real_estate_agent']}</p>`
+
+            
 }
+
+
+
 
 const deleteListing = (listingId) =>{
   return fetch(`${PROPERTIES_URL}/${listingId}`, {
@@ -167,7 +173,6 @@ const deleteListing = (listingId) =>{
 
 
 getListings().then(listings => {
-  
   listings.forEach(listing=>{
     renderListing(listing)
   })

@@ -21,9 +21,9 @@ class PropertiesController < ApplicationController
 
     def create
         
-        property = Property.create_or_find_by(prop_params)
-        prop_params[:owner_id] = owner.id
-        if property.save
+        property = Property.create(prop_params)
+        prop_params[:owner_id] = @owner.id
+        if property.save!
             render json: property
         else
             render json: { error: "Couldn't save"}
