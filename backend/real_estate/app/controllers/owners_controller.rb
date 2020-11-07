@@ -4,16 +4,16 @@ class OwnersController < ApplicationController
     end
 
     def index
-        owners = Owner.all
-        render json: owners, include: :properties
+        @owners = Owner.all
+        render json: @owners, include: :properties
     end
 
     def create
             
-            owner = Owner.create(owner_params)
+            @owner = Owner.create(owner_params)
 
             if owner.save
-                render json: owner
+                render json: @owner
             end
         
 

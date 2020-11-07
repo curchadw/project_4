@@ -3,13 +3,7 @@ const OWNERS_URL = `${BASE_URL}/owners/`
 const PROPERTIES_URL = `${BASE_URL}/properties/`
 
 //-------------------------------------------------------------
-const name = document.getElementById('name').value
-const phone = document.getElementById('phone_number').value
-const agent = document.getElementById('real_estate_agent').value
-const address = document.getElementById('address').value
-const state = document.getElementById('state').value
-const price = document.getElementById('sale_price').value
-const owner = document.getElementById('owner_id').value
+
 let listings = document.getElementById('listings')
 
 const listForm = document.getElementById('listing_form')
@@ -121,18 +115,22 @@ const renderListing = (listing) => {
     listForm.addEventListener('submit',(event) =>{
       event.preventDefault()
       
-      const formData_two = new FormData(listForm);
+      const formData = new FormData(event.currentTarget);
 
       fetch(PROPERTIES_URL,{
         method: 'POST',
-        body: formData_two
+        header: {
+          'Content-Type': 'application/json',
+            "Accept": "application/json"
+        },
+        body: formData
       }).then(res => res.json()).then((list_data) => {
         
         let new_listing = renderListing(list_data)
         listForm.reset()
         listings.append(new_listing)
         
-        // console.log(new_listing)
+        console.log(list_data)
       })
   })
 
@@ -153,9 +151,10 @@ const showListCard = (listing) => {
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price:${listing.sale_price}</p>
-            <p>Owner:${listing.owner['name']}</p>
-            <p>Phone:${listing.owner['phone_number']}</p>
-            <p>Agent:${listing.owner['real_estate_agent']}</p>`
+            <p>Owner:${listing.owner.name}</p>
+            <p>Phone:${listing.owner.phone_number}</p>
+            <p>Agent:${listing.owner.real_estate_agent}</p>
+            `
 
             
 }

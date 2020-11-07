@@ -20,9 +20,9 @@ class PropertiesController < ApplicationController
     end
 
     def create
-        byebug
+    
         property = Property.create(prop_params)
-        prop_params[:owner_id] = owner.id
+        prop_params[:owner_id] = :owner.id
         if property.save
             render json: property
         else
@@ -42,7 +42,7 @@ class PropertiesController < ApplicationController
 
     private
     def prop_params
-        params.permit(:address, :state, :sale_price, :owner_id)
+        params.permit(:id,:address, :state, :sale_price, :owner_id)
     end
 
 end
