@@ -22,7 +22,7 @@ class PropertiesController < ApplicationController
     def create
     
         property = Property.create(prop_params)
-        prop_params[:owner_id] = :owner.id
+        # prop_params[:owner_id] = :owner.id
         if property.save
             render json: property
         else

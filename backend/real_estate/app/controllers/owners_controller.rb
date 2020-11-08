@@ -12,7 +12,7 @@ class OwnersController < ApplicationController
             
             @owner = Owner.create(owner_params)
 
-            if owner.save
+            if @owner.save
                 render json: @owner
             end
         
