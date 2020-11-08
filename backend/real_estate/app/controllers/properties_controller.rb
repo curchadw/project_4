@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-     before_action :set_owner, only: [:create,:show, :edit, :update, :destroy]
+     before_action :set_owner, only: [:new,:create,:show, :edit, :update, :destroy]
 
     def new
         Property.new
@@ -21,7 +21,7 @@ class PropertiesController < ApplicationController
     end
 
     def create
-       byebug
+     
         property = Property.create(prop_params)
          
         if property.save
@@ -49,7 +49,7 @@ class PropertiesController < ApplicationController
 
     
     def prop_params
-        params.(:owner).permit(:id,:address, :state, :sale_price, :owner_id)
+        params.permit(:id,:address, :state, :sale_price, :owner_id)
     end
 
 end
