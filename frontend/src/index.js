@@ -147,11 +147,11 @@ const getListings = () => {
 
 // The actual rendering of the listing card
 const showListCard = (listing) => {
-   
+  
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price: ${listing.sale_price}</p>
-            <p>Owner: ${listing.owner.name}</p>
+            
             `
 
             

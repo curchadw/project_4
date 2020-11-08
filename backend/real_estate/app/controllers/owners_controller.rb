@@ -27,6 +27,9 @@ class OwnersController < ApplicationController
 
 
     private 
+
+    
+
     def owner_params
         params.permit(:id,:name,:phone_number,:real_estate_agent)
     end

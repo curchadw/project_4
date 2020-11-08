@@ -6,11 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Owner.create(name: 'Curtis Chadwell', phone_number: '2105555555', real_estate_agent: 'LeBron James')
-Owner.create(name: 'John Doe', phone_number: '2105555555', real_estate_agent: 'Bugs Bunny')
-Owner.create(name: 'Jane Doe', phone_number: '2105555555', real_estate_agent: 'Daffy Duck')
-Owner.create(name: 'Minnie Doe', phone_number: '2105555555', real_estate_agent: 'Stephen King')
-Owner.create(name: 'Mickey Mouse', phone_number: '2105555555', real_estate_agent: 'Minne Mouse')
-Owner.create(name: 'Batman', phone_number: '2105555555', real_estate_agent: 'Dick Grayson')
+Owner.create(name: 'John Doe', phone_number: '2105555551', real_estate_agent: 'Bugs Bunny')
+Owner.create(name: 'Jane Doe', phone_number: '2105555552', real_estate_agent: 'Daffy Duck')
+Owner.create(name: 'Minnie Doe', phone_number: '2105555553', real_estate_agent: 'Stephen King')
+Owner.create(name: 'Mickey Mouse', phone_number: '2105555554', real_estate_agent: 'Minne Mouse')
+Owner.create(name: 'Batman', phone_number: '2105555556', real_estate_agent: 'Dick Grayson')
 
 
 Property.create(address: '100 Elm Street', state: 'Tx', sale_price:'$600000', owner_id: 1 )
