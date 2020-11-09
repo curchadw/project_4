@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:create]
+    
     
     def new
         Property.new
@@ -21,7 +21,7 @@ class PropertiesController < ApplicationController
     end
 
     def create
-             
+         raise params.inspect    
         property = Property.create(prop_params)
          
         if property.save!
@@ -46,7 +46,7 @@ class PropertiesController < ApplicationController
     
     
     def prop_params
-        params.permit(:id,:address, :state, :sale_price, :owner_id)
+        params.fetch(:property).permit(:id,:address, :state, :sale_price, :owner_id)
     end
 
 end
