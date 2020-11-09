@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
-     before_action :set_owner, only: [:new,:create,:show, :edit, :update, :destroy]
-
+    skip_before_action :verify_authenticity_token, only: [:create]
+    
     def new
         Property.new
     end
@@ -13,7 +13,7 @@ class PropertiesController < ApplicationController
 
 
     def show
-        property = Property.find(params[:id])
+        property = Property.find(id: params[:id])
         options = {
             include: [:owner]
         }
@@ -21,10 +21,10 @@ class PropertiesController < ApplicationController
     end
 
     def create
-     
+             
         property = Property.create(prop_params)
          
-        if property.save
+        if property.save!
             render json: property
         else
             render json: { error: "Couldn't save"}
@@ -32,7 +32,7 @@ class PropertiesController < ApplicationController
     end
 
     def destroy
-        property = Property.find(params[:id])
+        property = Property.find(id: params[:id])
         unless property.nil?
           property.destroy
           render json: property
@@ -43,10 +43,7 @@ class PropertiesController < ApplicationController
 
     private
 
-    def set_owner
-        @owner = Owner.find(params[:owner_id])
-    end
-
+    
     
     def prop_params
         params.permit(:id,:address, :state, :sale_price, :owner_id)

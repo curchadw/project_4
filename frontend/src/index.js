@@ -12,9 +12,10 @@ const ownerBtn = document.getElementById('owner_submit')
 
 
 
-document.addEventListener('DOMContentLoaded',(event) => {
+
+document.addEventListener('DOMContentLoaded',() => {
   getListings();
-  event.preventDefault();  
+  
   
 });
 
@@ -58,16 +59,21 @@ fetch(OWNERS_URL)
 
       //-----Owner form submit data
       ownerForm.addEventListener('submit', (event)=>{
-        event.preventDefault()
+        event.preventDefault();  
         const formData = new FormData(ownerForm)
-        fetch(OWNERS_URL,{
+        
+        const ownerObj = {
           method: 'POST',
           header: {
             'Content-Type': 'application/json',
               "Accept": "application/json"
           },
-          body: formData 
-        }).then(resp => resp.json()).then((owner_obj) => {
+          body: formData
+        }
+
+
+        
+        fetch(OWNERS_URL, ownerObj).then(resp => resp.json()).then((owner_obj) => {
         let option = document.createElement('option');
         option.textContent = owner_obj.name;
         dropdown.add(option)
@@ -112,24 +118,24 @@ const renderListing = (listing) => {
   
    
    
-    listForm.addEventListener('submit',(event) =>{
-      event.preventDefault()
-      
-      const formData = new FormData(event.currentTarget);
+  listForm.addEventListener('submit',(event) =>{
+     event.preventDefault();   
+     const formData = new FormData(listForm)
 
-      fetch(PROPERTIES_URL,{
-        method: 'POST',
-        header: {
-          'Content-Type': 'application/json',
-            "Accept": "application/json"
-        },
-        body: formData
-      }).then(res => res.json()).then((list_data) => {
-        
+     const listObj = {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json',
+          "Accept": "application/json"
+      },
+      body: formData
+     }
+      fetch(PROPERTIES_URL, listObj)
+      .then(res => res.json())
+      .then((list_data) => {
         let new_listing = renderListing(list_data)
-        listForm.reset()
         listings.append(new_listing)
-        
+        listForm.reset()
         console.log(list_data)
       })
   })
@@ -145,15 +151,20 @@ const getListings = () => {
 }
 
 
+
+getListings().then(listings => {
+  listings.forEach(listing=>{
+    renderListing(listing)
+  })
+})
+
+
 // The actual rendering of the listing card
 const showListCard = (listing) => {
   
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
-            <p>Sale Price: ${listing.sale_price}</p>
-            <p>Owner: ${listing.owner.name}</p>
-            
-            `
+            <p>Sale Price: ${listing.sale_price}</p>`
 
             
 }
@@ -170,11 +181,7 @@ const deleteListing = (listingId) =>{
 
 
 
-getListings().then(listings => {
-  listings.forEach(listing=>{
-    renderListing(listing)
-  })
-})
+
     
 
 

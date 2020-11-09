@@ -1,10 +1,11 @@
 import { Property } from './property.js'
 
 class Owner {
-    constructor(name, phone_number, real_estate_agent){
-        this._name = name;
-        this.phone_number = phone_number;
-        this.real_estate_agent = real_estate_agent
+    constructor(owner){
+        this.id = owner.id
+        this.name = owner.name;
+        this.phone_number = owner.phone_number;
+        this.real_estate_agent = owner.real_estate_agent
     }
 
     get name(){
