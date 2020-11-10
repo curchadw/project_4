@@ -130,7 +130,7 @@ const renderListing = (listing) => {
 
      const listObj = {
       method: 'POST',
-      body: JSON.stringify(property),
+      body: JSON.stringify({ property }),
       header: {
         'Content-Type': 'application/json',
           "Accept": "application/json"
