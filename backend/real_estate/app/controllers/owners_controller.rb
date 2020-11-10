@@ -10,8 +10,8 @@ class OwnersController < ApplicationController
 
     def create
         
-            @owner = Owner.new(params[:owner])
-            @owner.save
+            @owner = Owner.create(owner_params)
+            
 
             if @owner.save
                 render json: @owner
@@ -19,6 +19,12 @@ class OwnersController < ApplicationController
         
 
     end
+
+    # def update
+    #     @owner = Property.find(params[:id])
+    #     @owner.update(params.require(:owner).permit(:name,:phone_number,:real_estate_agent)
+    #     render json: @owner
+    # end 
     
     
     def show
