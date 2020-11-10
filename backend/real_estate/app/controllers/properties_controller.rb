@@ -23,8 +23,8 @@ class PropertiesController < ApplicationController
 
     def create
             
-        property = Property.create(prop_params)
-        owner = Owner.find(prop_params[:owner_id])
+        @property = Property.new(params[:property])
+        @owner = Owner.find(params[:owner][:id])
          
         if property.save!
             

@@ -31,6 +31,14 @@ class Owner {
   set real_estate_agent(agent){
       this.real_estate_agent = agent;
   }
+
+  renderOwner(){
+      return (`
+        <p>${this.name}</p>
+        <p>${this.phone_number}</p>
+        <p>${this.real_estate_agent}</p>
+        `)
+  }
   
   
   
