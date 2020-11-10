@@ -120,16 +120,23 @@ const renderListing = (listing) => {
    
   listForm.addEventListener('submit',(event) =>{
      event.preventDefault();   
-     const formData = new FormData(listForm)
+     
+     const property = {
+       address: document.getElementById('address').value,
+       state: document.getElementById('state').value,
+       sale_price: document.getElementById('sale_price').value,
+       owner_id: document.getElementById('owner_id').value,
+     }
 
      const listObj = {
       method: 'POST',
+      body: JSON.stringify(property),
       header: {
         'Content-Type': 'application/json',
           "Accept": "application/json"
-      },
-      body: formData
-     }
+      }
+      }
+      
       fetch(PROPERTIES_URL, listObj)
       .then(res => res.json())
       .then((list_data) => {

@@ -1,4 +1,4 @@
 class Owner < ApplicationRecord
     
-    has_many :properties
+    has_many :properties 
 end

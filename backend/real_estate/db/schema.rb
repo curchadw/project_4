@@ -21,11 +21,10 @@ ActiveRecord::Schema.define(version: 2) do
   end
 
   create_table "properties", force: :cascade do |t|
+    t.integer "owner_id"
     t.string "address"
     t.string "state"
     t.string "sale_price"
-    t.binary "image"
-    t.integer "owner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
