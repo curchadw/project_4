@@ -1,7 +1,7 @@
-import { Owner } from './owner.js'
+
 
 const BASE_URL = "http://localhost:3000"
-const OWNERS_URL = `${BASE_URL}/owners/`roperty
+const OWNERS_URL = `${BASE_URL}/owners/`
 const PROPERTIES_URL = `${BASE_URL}/properties/`
 
 //-------------------------------------------------------------
@@ -17,7 +17,7 @@ const ownerForm = document.getElementById('owner_form')
 
 document.addEventListener('DOMContentLoaded',() => {
  getListings();
- dropdownMenu();
+ dropdownMenu()
   
 });
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded',() => {
 ownerForm.addEventListener('submit',(event)=> {
 event.preventDefault();
 OwnerForm()
-
+dropdownMenu()
 ownerForm.reset()
 
 })
@@ -35,18 +35,18 @@ function OwnerForm(){
   
   let name = document.getElementById('name').value
   let phone_number = document.getElementById('phone_number').value
-  let agent = document.getElementById('real_estate_agent').value
+  let real_estate_agent = document.getElementById('real_estate_agent').value
+
+  
 
   let owner = {
     name: name, 
     phone_number: phone_number,
-    agent: agent
+    real_estate_agent: real_estate_agent
   }
 
-  let owner = new Owner(name, phone_number, real_estate_agent)
-
   let config ={
-    method: 'POST',
+    method: 'post',
     body: JSON.stringify(owner),
     header: {
       'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ const renderListing = (listing) => {
      let sale_price = document.getElementById('sale_price').value
 
     const listing = {
-       owner: owner,
+       owner_id: owner,
        address: address,
        state: state,
        sale_price: sale_price
@@ -188,7 +188,7 @@ const showListCard = (listing) => {
 
 const deleteListing = (listingId) =>{
   return fetch(`${PROPERTIES_URL}/${listingId}`, {
-    method: "DELETE",
+    method: "delete",
   })
   .then(res => res.json())
 }

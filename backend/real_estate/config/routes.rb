@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get'/owners/:id', to: 'owners#show'
   post'/properties/', to: 'properties#create'
   post'/owners/', to: 'owners#create'
+  delete'/properties/:id', to: 'owners#destroy'
 end

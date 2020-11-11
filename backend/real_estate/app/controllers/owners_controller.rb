@@ -12,9 +12,8 @@ class OwnersController < ApplicationController
         
             owner = Owner.create(owner_params)
             
-
             if owner.save
-                render json: @owner
+                render json: owner
             end
         
 
