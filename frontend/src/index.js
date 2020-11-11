@@ -1,5 +1,7 @@
+import { Owner } from './owner.js'
+
 const BASE_URL = "http://localhost:3000"
-const OWNERS_URL = `${BASE_URL}/owners/`
+const OWNERS_URL = `${BASE_URL}/owners/`roperty
 const PROPERTIES_URL = `${BASE_URL}/properties/`
 
 //-------------------------------------------------------------
@@ -8,82 +10,80 @@ let listings = document.getElementById('listings')
 
 const listForm = document.getElementById('listing_form')
 const ownerForm = document.getElementById('owner_form')
-const ownerBtn = document.getElementById('owner_submit')
+
 
 
 
 
 document.addEventListener('DOMContentLoaded',() => {
-  getListings();
-  
+ getListings();
+ dropdownMenu();
   
 });
 
-let dropdown = document.getElementById('owner_id');
-dropdown.length = 0;
-let defaultOption = document.createElement('option');
-defaultOption.text = 'Choose owner';
-defaultOption.value = '';
-dropdown.add(defaultOption);
-dropdown.selectedIndex = 0;
 
 
-//this fetched (GET) owners for my dropdown
-fetch(OWNERS_URL)
-    .then((resp) =>{
-        if(resp.status !== 200){
-            console.warn('Looks like there was a problem. Status Code: ' + 
-          resp.status);  
-        return;    
-        }
-        resp.json().then((data) =>{  
-            
-        
-            for (let i = 0; i < data.length; i++) {
-                let option;
-                option = document.createElement('option');
-              
-                option.text = data[i].name;
-                // debugger
-                option.value = data[i].id; 
-                dropdown.add(option); 
-                console.log(option)
-            }    
-          }); 
+ownerForm.addEventListener('submit',(event)=> {
+event.preventDefault();
+OwnerForm()
 
+ownerForm.reset()
+
+})
+
+function OwnerForm(){
+  
+  let name = document.getElementById('name').value
+  let phone_number = document.getElementById('phone_number').value
+  let agent = document.getElementById('real_estate_agent').value
+
+  let owner = {
+    name: name, 
+    phone_number: phone_number,
+    agent: agent
+  }
+
+  let owner = new Owner(name, phone_number, real_estate_agent)
+
+  let config ={
+    method: 'POST',
+    body: JSON.stringify(owner),
+    header: {
+      'Content-Type': 'application/json',
+        "Accept": "application/json"
     }
-    )
-    .catch(function(err) {  
-        console.error('Fetch Error -', err);  
-      });
+  }
+  
+  
+  fetch(OWNERS_URL, config)
+  
+  
+  
+}
 
-      //-----Owner form submit data
-      ownerForm.addEventListener('submit', (event)=>{
-        event.preventDefault();  
-        const formData = new FormData(ownerForm)
-        
-        const ownerObj = {
-          method: 'POST',
-          header: {
-            'Content-Type': 'application/json',
-              "Accept": "application/json"
-          },
-          body: formData
-        }
+//layout as is 
+//submit the form 
+//dropdown disappersa
+//dropdown reaperapp
 
-
-        
-        fetch(OWNERS_URL, ownerObj).then(resp => resp.json()).then((owner_obj) => {
-        let option = document.createElement('option');
-        option.textContent = owner_obj.name;
-        dropdown.add(option)
-        console.log(owner_obj)
-        ownerForm.reset()
-        })
-      })
-
-      //---------------------------------------------------------------------------------------------------
-
+function dropdownMenu(){
+  let dropdown = document.getElementById('owner_id');
+  dropdown.length = 0;
+  let defaultOption = document.createElement('option');
+  defaultOption.text = 'Choose owner';
+  defaultOption.value = '';
+  dropdown.add(defaultOption);
+  dropdown.selectedIndex = 0;
+  dropdown.innerHTML= `` //disappear
+  fetch(OWNERS_URL)
+  .then(resp => resp.json())
+  .then(owners => {
+    owners.forEach(owner => {
+    dropdown.innerHTML += `<option>${owner.name}</option>`
+    })
+    
+  })
+}
 
 
 
@@ -105,8 +105,6 @@ const renderListing = (listing) => {
   
   return listings.appendChild(listingCard)
   
-  
-  
 }
 
 
@@ -121,16 +119,23 @@ const renderListing = (listing) => {
   listForm.addEventListener('submit',(event) =>{
      event.preventDefault();   
      
-     const property = {
-       address: document.getElementById('address').value,
-       state: document.getElementById('state').value,
-       sale_price: document.getElementById('sale_price').value,
-       owner_id: document.getElementById('owner_id').value,
+     let owner = document.getElementById('owner_id').value
+     let address = document.getElementById('address').value
+     let state = document.getElementById('state').value
+     let sale_price = document.getElementById('sale_price').value
+
+    const listing = {
+       owner: owner,
+       address: address,
+       state: state,
+       sale_price: sale_price
      }
+
+     
 
      const listObj = {
       method: 'POST',
-      body: JSON.stringify({ property }),
+      body: listing,
       header: {
         'Content-Type': 'application/json',
           "Accept": "application/json"
@@ -171,7 +176,9 @@ const showListCard = (listing) => {
   
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
-            <p>Sale Price: ${listing.sale_price}</p>`
+            <p>Sale Price: ${listing.sale_price}</p>
+            
+            `
 
             
 }
@@ -204,6 +211,3 @@ const deleteListing = (listingId) =>{
 
 
 
-
-
- 

@@ -8,27 +8,27 @@ class PropertiesController < ApplicationController
 
 
     def index
-        @properties = Property.all
-        render json: @properties
+        properties = Property.all
+        render json: properties
     end
 
 
     def show
-        @property = Property.find(id: params[:id])
+        property = Property.find(id: params[:id])
         options = {
             include: [:owner]
         }
-        render json: @property
+        render json: property
     end
 
     def create
         
-        @property = Property.create(prop_params)
-        # @owner = Owner.find(params[:owner_id])
+        property = Property.create(prop_params)
+        # @owner = Owner.find(params[:id])
          
-        if @property.save
+        if property.save
             
-            render json: @property
+            render json: property
         else
             render json: { error: "Couldn't save"}
         end
@@ -44,10 +44,10 @@ class PropertiesController < ApplicationController
 
 
     def destroy
-        @property = Property.find(id: params[:id])
-        unless @property.nil?
-          @property.destroy
-          render json: @property
+        property = Property.find(id: params[:id])
+        unless property.nil?
+          property.destroy
+          render json: property
         else
           render json: { error: "Property not found" }, status: 404
         end
@@ -58,7 +58,7 @@ class PropertiesController < ApplicationController
     
     
     def prop_params
-        params.require(:property).permit(:address, :state, :sale_price, :owner_id)
+        params.permit(:owner_id, :address, :state, :sale_price)
     end
 
 end

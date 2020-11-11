@@ -4,16 +4,16 @@ class OwnersController < ApplicationController
     end
 
     def index
-        @owners = Owner.all
-        render json: @owners, include: :properties
+        owners = Owner.all
+        render json: owners, include: :properties
     end
 
     def create
         
-            @owner = Owner.create(owner_params)
+            owner = Owner.create(owner_params)
             
 
-            if @owner.save
+            if owner.save
                 render json: @owner
             end
         
@@ -28,8 +28,8 @@ class OwnersController < ApplicationController
     
     
     def show
-        @owner = Owner.find(params[:id])
-        render json: @owner
+        owner = Owner.find(params[:id])
+        render json: owner
     end
 
 
@@ -38,6 +38,6 @@ class OwnersController < ApplicationController
     
 
     def owner_params
-        params.require(:owner).permit(:name,:phone_number,:real_estate_agent)
+        params.permit(:name,:phone_number,:real_estate_agent)
     end
 end
