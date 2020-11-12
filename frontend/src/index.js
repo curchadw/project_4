@@ -46,25 +46,20 @@ function OwnerForm(){
   }
 
   let config ={
-    method: 'post',
+    method: 'POST',
     body: JSON.stringify(owner),
     header: {
       'Content-Type': 'application/json',
         "Accept": "application/json"
     }
   }
-  
-  
   fetch(OWNERS_URL, config)
-  
-  
-  
-}
+  .then(resp => resp.json())
+  .then(resp =>{
+    console.log(resp)
+  })
+ }
 
-//layout as is 
-//submit the form 
-//dropdown disappersa
-//dropdown reaperapp
 
 function dropdownMenu(){
   let dropdown = document.getElementById('owner_id');

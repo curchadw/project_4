@@ -9,21 +9,19 @@ class OwnersController < ApplicationController
     end
 
     def create
-        
-            owner = Owner.create(owner_params)
             
+            owner = Owner.create(owner_params)
+           
             if owner.save
                 render json: owner
+            else
+                render json: { error: "Couldn't save"}
             end
         
 
     end
 
-    # def update
-    #     @owner = Property.find(params[:id])
-    #     @owner.update(params.require(:owner).permit(:name,:phone_number,:real_estate_agent)
-    #     render json: @owner
-    # end 
+    
     
     
     def show
@@ -37,6 +35,6 @@ class OwnersController < ApplicationController
     
 
     def owner_params
-        params.permit(:name,:phone_number,:real_estate_agent)
+        params.permit(:name,:phone_number,:real_estate_agent, properties_attributes: [:id, :owner_id, :address, :state, :sale_price])
     end
 end
