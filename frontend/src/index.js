@@ -84,9 +84,10 @@ function dropdownMenu(){
 
 
 const renderListing = (listing) => {
-  let listingCard = document.createElement('div')
+  let listingCard = document.createElement(`div`)
   listingCard.setAttribute('class','card')
   listingCard.dataset.id = listing.id
+
   listingCard.innerHTML = showListCard(listing)
   //---Delete Button
   let deleteBtn = document.createElement('button')
@@ -108,31 +109,30 @@ const renderListing = (listing) => {
 //---------------------------------------------------------------------------------------------------
   const listingbtn = document.getElementById('prop_submit')
   const listContainer = document.getElementById('listings')
+  // const ownerId = parseInt(event.target.dataset.ownerId)
 
   
-   
-   
-  listForm.addEventListener('submit',(event) =>{
-     event.preventDefault();   
-     
+  function ListForm(){
      let owner_id = document.getElementById('owner_id').value
      let address = document.getElementById('address').value
      let state = document.getElementById('state').value
      let sale_price = document.getElementById('sale_price').value
-    
-    const listing = {
-       owner_id: owner_id,
-       address: address,
-       state: state,
-       sale_price: sale_price
-     }
 
-     
+     const listing = {
+      owner_id: owner_id,
+      address: address,
+      state: state,
+      sale_price: sale_price
+    }
 
-     const listObj = {
+    // const formData = new FormData(listForm)
+
+    const listObj = {
       method: 'POST',
-      body: JSON.stringify(listing),
+      body: listing,
       headers: {
+        
+        
           "Accept": "application/json"
        }
       }
@@ -142,9 +142,17 @@ const renderListing = (listing) => {
       .then((list_data) => {
         let new_listing = renderListing(list_data)
         listings.append(new_listing)
-        listForm.reset()
-        console.log(list_data)
+        
+        console.log(new_listing)
       })
+  } 
+   
+  listForm.addEventListener('submit',(event) =>{
+     event.preventDefault();   
+     ListForm()
+     listForm.reset()
+    
+
   })
 
 
