@@ -6,7 +6,7 @@ const PROPERTIES_URL = `${BASE_URL}/properties/`
 
 //-------------------------------------------------------------
 
-var listings = document.getElementById('listings')
+let listings = document.getElementById('listings')
 
 const listForm = document.getElementById('listing_form')
 const ownerForm = document.getElementById('owner_form')
@@ -33,21 +33,21 @@ ownerForm.reset()
 
 function OwnerForm(){
   
-  var name = document.getElementById('name').value
-  var phone_number = document.getElementById('phone_number').value
-  var real_estate_agent = document.getElementById('real_estate_agent').value
+  let name = document.getElementById('name').value
+  let phone_number = document.getElementById('phone_number').value
+  let real_estate_agent = document.getElementById('real_estate_agent').value
 
 
 
-  var owner = {
+  let owner = {
     name: name, 
     phone_number: phone_number,
     real_estate_agent: real_estate_agent
   }
 
-  var config ={
+  let config ={
     method: 'POST',
-    body: JSON.stringify(owner),
+    body: owner,
     headers: {
       'Content-Type': 'application/json',
         "Accept": "application/json"
@@ -63,9 +63,9 @@ function OwnerForm(){
 
 function dropdownMenu(){
 
-  var dropdown = document.getElementById('owner_id');
+  let dropdown = document.getElementById('owner_id');
   dropdown.length = 0;
-  var defaultOption = document.createElement('option');
+  let defaultOption = document.createElement('option');
   defaultOption.text = 'Choose owner';
   defaultOption.value = '';
   dropdown.add(defaultOption);
@@ -84,12 +84,12 @@ function dropdownMenu(){
 
 
 const renderListing = (listing) => {
-  var listingCard = document.createElement('div')
+  let listingCard = document.createElement('div')
   listingCard.setAttribute('class','card')
   listingCard.dataset.id = listing.id
   listingCard.innerHTML = showListCard(listing)
   //---Delete Button
-  var deleteBtn = document.createElement('button')
+  let deleteBtn = document.createElement('button')
   deleteBtn.setAttribute('id','delete')
   deleteBtn.innerHTML = 'Delete Listing'
   deleteBtn.addEventListener('click', (event)=>{
@@ -115,13 +115,13 @@ const renderListing = (listing) => {
   listForm.addEventListener('submit',(event) =>{
      event.preventDefault();   
      
-     var owner = document.getElementById('owner_id').value
-     var address = document.getElementById('address').value
-     var state = document.getElementById('state').value
-     var sale_price = document.getElementById('sale_price').value
+     let owner_id = document.getElementById('owner_id').value
+     let address = document.getElementById('address').value
+     let state = document.getElementById('state').value
+     let sale_price = document.getElementById('sale_price').value
     
     const listing = {
-       owner_id: owner,
+       owner_id: owner_id,
        address: address,
        state: state,
        sale_price: sale_price
@@ -131,17 +131,16 @@ const renderListing = (listing) => {
 
      const listObj = {
       method: 'POST',
-      body: listing,
+      body: JSON.stringify(listing),
       headers: {
-        'Content-Type': 'application/json',
           "Accept": "application/json"
-      }
+       }
       }
       
       fetch(PROPERTIES_URL, listObj)
       .then(res => res.json())
       .then((list_data) => {
-        var new_listing = renderListing(list_data)
+        let new_listing = renderListing(list_data)
         listings.append(new_listing)
         listForm.reset()
         console.log(list_data)
