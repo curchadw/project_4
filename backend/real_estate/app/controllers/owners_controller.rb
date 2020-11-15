@@ -11,7 +11,7 @@ class OwnersController < ApplicationController
     def create
             
             owner = Owner.create(owner_params)
-           
+            
             if owner.save
                 render json: owner
             else
@@ -35,6 +35,6 @@ class OwnersController < ApplicationController
     
 
     def owner_params
-        params.permit(:name,:phone_number,:real_estate_agent, properties_attributes: [:owner_id, :address, :state, :sale_price])
+        params.permit(:name,:phone_number,:real_estate_agent)
     end
 end

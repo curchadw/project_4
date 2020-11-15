@@ -42,12 +42,12 @@ function OwnerForm(){
     phone_number: phone_number,
     real_estate_agent: real_estate_agent
   }
-
-  let config ={
+  
+  const config ={
     method: 'POST',
     body: owner,
     headers: {
-      'Content-Type': 'application/json',
+      
         "Accept": "application/json"
     }
   }
@@ -61,7 +61,7 @@ function OwnerForm(){
 
  function dropdownMenu(){
 
-  let dropdown = document.getElementById('owner_id');
+  const dropdown = document.getElementById('owner_id');
   // dropdown.length = 0;
   // let defaultOption = document.createElement('option');
   // defaultOption.text = 'Choose owner';
@@ -82,13 +82,13 @@ function OwnerForm(){
 
 
 const renderListing = (listing) => {
-  let listingCard = document.createElement(`div`)
+  const listingCard = document.createElement(`div`)
   listingCard.setAttribute('class','card')
   listingCard.dataset.id = listing.id
 
   listingCard.innerHTML = showListCard(listing)
   //---Delete Button
-  let deleteBtn = document.createElement('button')
+  const deleteBtn = document.createElement('button')
   deleteBtn.setAttribute('id','delete')
   deleteBtn.innerHTML = 'Delete Listing'
   deleteBtn.addEventListener('click', (event)=>{
@@ -178,7 +178,6 @@ const showListCard = (listing) => {
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price: ${listing.sale_price}</p>
-            
             `
 
             
