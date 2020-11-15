@@ -1,5 +1,3 @@
-
-
 const BASE_URL = "http://localhost:3000"
 const OWNERS_URL = `${BASE_URL}/owners/`
 const PROPERTIES_URL = `${BASE_URL}/properties/`
@@ -61,21 +59,21 @@ function OwnerForm(){
  }
 
 
-function dropdownMenu(){
+ function dropdownMenu(){
 
   let dropdown = document.getElementById('owner_id');
-  dropdown.length = 0;
-  let defaultOption = document.createElement('option');
-  defaultOption.text = 'Choose owner';
-  defaultOption.value = '';
-  dropdown.add(defaultOption);
-  dropdown.selectedIndex = 0;
+  // dropdown.length = 0;
+  // let defaultOption = document.createElement('option');
+  // defaultOption.text = 'Choose owner';
+  // defaultOption.value = '';
+  // dropdown.add(defaultOption);
+  // dropdown.selectedIndex = 0;
   dropdown.innerHTML= `` //disappear
   fetch(OWNERS_URL)
   .then(resp => resp.json())
   .then(owners => {
     owners.forEach(owner => {
-    dropdown.innerHTML += `<option>${owner.name}</option>`
+    dropdown.innerHTML += `<option value = ${owner.id}>${owner.name}</option>`
     })
     
   })
@@ -119,7 +117,7 @@ const renderListing = (listing) => {
      let sale_price = document.getElementById('sale_price').value
 
      const listing = {
-      owner_id: owner_id,
+      owner_id: parseInt(owner_id),
       address: address,
       state: state,
       sale_price: sale_price
@@ -129,7 +127,7 @@ const renderListing = (listing) => {
 
     const listObj = {
       method: 'POST',
-      body: listing,
+      body:JSON.stringify(listing),
       headers: {
         
         
@@ -195,22 +193,3 @@ const deleteListing = (listingId) =>{
   })
   .then(res => res.json())
 }
-
-
-
-
-    
-
-
-
-
-
-   
-   
-
-  
-
-    
-
-
-

@@ -22,12 +22,11 @@ class PropertiesController < ApplicationController
     end
 
     def create
-        
+       
         property = Property.create(prop_params)
-        # @owner = Owner.find(params[:id])
-         
+      
         if property.save
-            
+          
             render json: property
         else
             render json: { error: "Couldn't save"}

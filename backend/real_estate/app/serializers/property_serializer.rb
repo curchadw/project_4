@@ -1,4 +1,4 @@
 class PropertySerializer < ActiveModel::Serializer
-  attributes :id, :owner_id, :address, :state, :sale_price
+  attributes :id, :address, :state, :sale_price, :owner_id
   belongs_to :owner
 end
