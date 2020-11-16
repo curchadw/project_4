@@ -1,4 +1,4 @@
-import { Property } from './property.js'
+
 
 class Owner {
     constructor(owner){

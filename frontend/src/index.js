@@ -4,7 +4,7 @@ const PROPERTIES_URL = `${BASE_URL}/properties/`
 
 //-------------------------------------------------------------
 
-let listings = document.getElementById('listings')
+const listings = document.getElementById('listings')
 
 const listForm = document.getElementById('listing_form')
 const ownerForm = document.getElementById('owner_form')
@@ -34,22 +34,22 @@ function OwnerForm(){
   let name = document.getElementById('name').value
   let phone_number = document.getElementById('phone_number').value
   let real_estate_agent = document.getElementById('real_estate_agent').value
+  
 
 
-
-  let owner = {
+  const owner = {
     name: name, 
     phone_number: phone_number,
     real_estate_agent: real_estate_agent
   }
-  
+  // const owner = new FormData(ownerForm)
+
   const config ={
-    method: 'POST',
-    body: owner,
+    method: 'post',
     headers: {
-      
-        "Accept": "application/json"
-    }
+      "Accept": "application/json"
+    },
+    body: owner,
   }
   fetch(OWNERS_URL, config)
   .then(resp => resp.json())
@@ -116,29 +116,29 @@ const renderListing = (listing) => {
      let state = document.getElementById('state').value
      let sale_price = document.getElementById('sale_price').value
 
+debugger
      const listing = {
-      owner_id: parseInt(owner_id),
       address: address,
+      owner_id: parseInt(owner_id),
+      sale_price: sale_price,
       state: state,
-      sale_price: sale_price
     }
 
     // const formData = new FormData(listForm)
-
+    
     const listObj = {
-      method: 'POST',
-      body:JSON.stringify(listing),
+      method: 'post',
+      
       headers: {
-        
-        
-          "Accept": "application/json"
-       }
+        "Accept": "application/json"
+        },
+        body: listing
       }
       
       fetch(PROPERTIES_URL, listObj)
       .then(res => res.json())
       .then((list_data) => {
-        let new_listing = renderListing(list_data)
+        var new_listing = renderListing(list_data)
         listings.append(new_listing)
         
         console.log(new_listing)
@@ -178,7 +178,9 @@ const showListCard = (listing) => {
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price: ${listing.sale_price}</p>
-            `
+`
+// const newlisting = new Property(listing)
+// newlisting.renderListing()
 
             
 }

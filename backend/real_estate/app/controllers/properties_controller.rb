@@ -22,7 +22,7 @@ class PropertiesController < ApplicationController
     end
 
     def create
-       
+      
         property = Property.create(prop_params)
       
         if property.save
@@ -57,7 +57,7 @@ class PropertiesController < ApplicationController
     
     
     def prop_params
-        params.permit(:address, :state, :sale_price, :owner_id, owner_attributes: [:name, :phone_number,:real_estate_agent])
+        params.permit(:address, :owner_id, :sale_price, :state)
     end
 
 end

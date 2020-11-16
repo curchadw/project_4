@@ -10,8 +10,9 @@ class OwnersController < ApplicationController
 
     def create
             
-            owner = Owner.create(owner_params)
-            
+            owner = Owner.new(owner_params)
+          
+            owner.save
             if owner.save
                 render json: owner
             else

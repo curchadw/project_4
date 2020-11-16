@@ -1,8 +1,9 @@
 class Property {
-    constructor(address,state,sale_price){
-        this.address = address;
-        this.state = state;
-        this.sale_price = sale_price;
+    constructor(property){
+        this.id = property.id
+        this.address = property.address;
+        this.state = property.state;
+        this.sale_price = property.sale_price;
     }
 
     set address(newAddress){
@@ -28,6 +29,12 @@ class Property {
 
     get sale_price(){
         return this.sale_price
+    }
+
+    renderListing(){
+        return(`<p>Address: ${this.address}</p>
+                <p>State: ${this.state}</p>
+                <p>Sale Price: ${this.sale_price}</p>`)
     }
 
 }
