@@ -57,7 +57,7 @@ class PropertiesController < ApplicationController
     
     
     def prop_params
-        params.permit(:address, :owner_id, :sale_price, :state)
+        params.permit(:address, :owner_id, :sale_price, :state, owner_attributes:[:name, :phone_number,:real_estate_agent])
     end
 
 end

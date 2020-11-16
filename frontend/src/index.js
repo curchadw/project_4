@@ -1,6 +1,6 @@
 const BASE_URL = "http://localhost:3000"
-const OWNERS_URL = `${BASE_URL}/owners/`
-const PROPERTIES_URL = `${BASE_URL}/properties/`
+const OWNERS_URL = `${BASE_URL}/owners`
+const PROPERTIES_URL = `${BASE_URL}/properties`
 
 //-------------------------------------------------------------
 
@@ -46,10 +46,12 @@ function OwnerForm(){
 
   const config ={
     method: 'post',
+    body:JSON.stringify(owner),
     headers: {
-      "Accept": "application/json"
-    },
-    body: owner,
+      "Accept": "application/json",
+      "Content-type": "application/json"
+    }
+    
   }
   fetch(OWNERS_URL, config)
   .then(resp => resp.json())
@@ -119,7 +121,7 @@ const renderListing = (listing) => {
 debugger
      const listing = {
       address: address,
-      owner_id: parseInt(owner_id),
+      owner_id: owner_id,
       sale_price: sale_price,
       state: state,
     }
@@ -128,11 +130,11 @@ debugger
     
     const listObj = {
       method: 'post',
-      
       headers: {
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "Content-type": "application/json"
         },
-        body: listing
+        body: JSON.stringify(listing),
       }
       
       fetch(PROPERTIES_URL, listObj)
@@ -178,6 +180,9 @@ const showListCard = (listing) => {
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price: ${listing.sale_price}</p>
+            <p>Address: ${listing.owner.name}</p>
+            <p>State: ${listing.owner.phone_number}</p>
+            <p>Sale Price: ${listing.owner.real_estate_agent}</p>
 `
 // const newlisting = new Property(listing)
 // newlisting.renderListing()
