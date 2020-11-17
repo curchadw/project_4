@@ -86,6 +86,7 @@ function OwnerForm(){
 const renderListing = (listing) => {
   const listingCard = document.createElement(`div`)
   listingCard.setAttribute('class','card')
+  listingCard.setAttribute('id','edit')
   listingCard.dataset.id = listing.id
 
   listingCard.innerHTML = showListCard(listing)
@@ -101,6 +102,14 @@ const renderListing = (listing) => {
   listingCard.appendChild(deleteBtn)
   
   return listings.appendChild(listingCard)
+  //--Edit Button----
+  const editBtn = document.createElement('button')
+  editBtn.setAttribute('id','edit')
+  editBtn.innerHTML = 'Edit Listing'
+  editBtn.addEventListener('click', (event)=>{
+    let listingId = parseInt(event.target.dataset.listingId)
+    
+  })
   
 }
 
@@ -190,9 +199,24 @@ const showListCard = (listing) => {
 `
 // const newlisting = new Property(listing)
 // newlisting.renderListing()
-
-            
 }
+
+const editListing = () =>{
+  event.preventDefault()
+  let editForm = document.getElementById('edit_list_form')
+  let listId = parseInt(event.target.parentElement.id)
+  editForm.innerHTML =  `
+  <form>
+      <label>Agent:</label><br>
+      <input type="text" id="edit-agent" value=""><br>
+      <input type='hidden' id = 'edit_card_id' value="${listId}">
+      <input type="submit" value="Edit Agent">
+      <button type="button" onclick = "cancelEdit()" >Cancel</button>
+  </form>
+  `
+}
+
+
 
 
 
@@ -203,3 +227,5 @@ const deleteListing = (listingId) =>{
   })
   .then(res => res.json())
 }
+
+

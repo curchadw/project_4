@@ -9,24 +9,24 @@ class Owner {
         return this.name;
     }
 
-    set name(newName){
-        this.name = newName;
+    set name(name){
+        this.name = name;
     }
 
     get phone_number(){
       return this.phone;
   }
 
-  set phone_number(number){
-      this.phone_number = number;
+  set phone_number(phone_number){
+      this.phone_number = phone_number;
   }
 
   get real_estate_agent(){
       return this.real_estate_agent;
   }
 
-  set real_estate_agent(agent){
-      this.real_estate_agent = agent;
+  set real_estate_agent(real_estate_agent){
+      this.real_estate_agent = real_estate_agent;
   }
 
   renderOwner(){
