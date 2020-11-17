@@ -1,19 +1,16 @@
-
-
 class Owner {
-    constructor(owner){
-        this.id = owner.id
-        this.name = owner.name;
-        this.phone_number = owner.phone_number;
-        this.real_estate_agent = owner.real_estate_agent
+    constructor(name,phone_number,real_estate_agent){
+        this.name = name;
+        this.phone_number = phone_number;
+        this.real_estate_agent = real_estate_agent
     }
 
     get name(){
-        return this._name;
+        return this.name;
     }
 
     set name(newName){
-        this._name = newName;
+        this.name = newName;
     }
 
     get phone_number(){
@@ -39,8 +36,5 @@ class Owner {
         <p>${this.real_estate_agent}</p>
         `)
   }
-  
-  
-  
   
 }

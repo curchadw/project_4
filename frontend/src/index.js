@@ -13,7 +13,8 @@ const ownerForm = document.getElementById('owner_form')
 
 
 
-document.addEventListener('DOMContentLoaded',() => {
+document.addEventListener('DOMContentLoaded',(event) => {
+ event.preventDefault()
  getListings();
  dropdownMenu()
   
@@ -22,11 +23,11 @@ document.addEventListener('DOMContentLoaded',() => {
 
 
 ownerForm.addEventListener('submit',(event)=> {
-event.preventDefault();
+
 OwnerForm()
 dropdownMenu()
 ownerForm.reset()
-
+event.preventDefault();
 })
 
 function OwnerForm(){
@@ -34,15 +35,20 @@ function OwnerForm(){
   let name = document.getElementById('name').value
   let phone_number = document.getElementById('phone_number').value
   let real_estate_agent = document.getElementById('real_estate_agent').value
+ 
+ //Owner Class-------------------------------------------------------------------------------------------------
+  let Owner = class Owner {
+    constructor(name,phone_number,real_estate_agent){
+      this.name = name;
+      this.phone_number = phone_number;
+      this.real_estate_agent = real_estate_agent;
+    }
+  }
+
+  const owner = new Owner(name, phone_number,real_estate_agent)
   
 
 
-  const owner = {
-    name: name, 
-    phone_number: phone_number,
-    real_estate_agent: real_estate_agent
-  }
-  // const owner = new FormData(ownerForm)
 
   const config ={
     method: 'post',
@@ -64,12 +70,6 @@ function OwnerForm(){
  function dropdownMenu(){
 
   const dropdown = document.getElementById('owner_id');
-  // dropdown.length = 0;
-  // let defaultOption = document.createElement('option');
-  // defaultOption.text = 'Choose owner';
-  // defaultOption.value = '';
-  // dropdown.add(defaultOption);
-  // dropdown.selectedIndex = 0;
   dropdown.innerHTML= `` //disappear
   fetch(OWNERS_URL)
   .then(resp => resp.json())
@@ -118,15 +118,19 @@ const renderListing = (listing) => {
      let state = document.getElementById('state').value
      let sale_price = document.getElementById('sale_price').value
 
-debugger
-     const listing = {
-      address: address,
-      owner_id: owner_id,
-      sale_price: sale_price,
-      state: state,
+    //Property Class-----------------------------------------------------
+     let Property = class Property {
+      constructor(address,owner_id,sale_price,state){
+        this.address = address;
+        this.owner_id = owner_id;
+        this.sale_price = sale_price;
+        this.state = state;
+      }
     }
+  
+    const listing = new Property(address, owner_id,sale_price,state)
 
-    // const formData = new FormData(listForm)
+    
     
     const listObj = {
       method: 'post',
