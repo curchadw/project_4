@@ -103,13 +103,7 @@ const renderListing = (listing) => {
   
   return listings.appendChild(listingCard)
   //--Edit Button----
-  const editBtn = document.createElement('button')
-  editBtn.setAttribute('id','edit')
-  editBtn.innerHTML = 'Edit Listing'
-  editBtn.addEventListener('click', (event)=>{
-    let listingId = parseInt(event.target.dataset.listingId)
-    
-  })
+ 
   
 }
 
@@ -201,20 +195,7 @@ const showListCard = (listing) => {
 // newlisting.renderListing()
 }
 
-const editListing = () =>{
-  event.preventDefault()
-  let editForm = document.getElementById('edit_list_form')
-  let listId = parseInt(event.target.parentElement.id)
-  editForm.innerHTML =  `
-  <form>
-      <label>Agent:</label><br>
-      <input type="text" id="edit-agent" value=""><br>
-      <input type='hidden' id = 'edit_card_id' value="${listId}">
-      <input type="submit" value="Edit Agent">
-      <button type="button" onclick = "cancelEdit()" >Cancel</button>
-  </form>
-  `
-}
+
 
 
 
