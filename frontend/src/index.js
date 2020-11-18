@@ -95,9 +95,9 @@ const renderListing = (listing) => {
   deleteBtn.setAttribute('id','delete')
   deleteBtn.innerHTML = 'Delete Listing'
   deleteBtn.addEventListener('click', (event)=>{
-    let listingId = parseInt(event.target.dataset.listingId)
+    // let listingId = parseInt(event.target.dataset.listingId)
     event.target.parentNode.remove()
-    deleteListing(listingId)
+    deleteListing(listing)
   })
   listingCard.appendChild(deleteBtn)
   
