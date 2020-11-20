@@ -43,10 +43,11 @@ class PropertiesController < ApplicationController
 
 
     def destroy
-        property = Property.find(id: params[:id])
+      
+        property = Property.find(params[:id])
         unless property.nil?
           property.destroy
-          render json: property
+          
         else
           render json: { error: "Property not found" }, status: 404
         end

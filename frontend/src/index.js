@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded',(event) => {
 ownerForm.addEventListener('submit',(event)=> {
 
 OwnerForm()
-dropdownMenu()
+//dropdownMenu()
 ownerForm.reset()
 event.preventDefault();
 })
@@ -62,6 +62,7 @@ function OwnerForm(){
   fetch(OWNERS_URL, config)
   .then(resp => resp.json())
   .then(resp =>{
+    dropdownMenu()
     console.log(resp)
   })
  }
@@ -97,7 +98,8 @@ const renderListing = (listing) => {
   deleteBtn.addEventListener('click', (event)=>{
     // let listingId = parseInt(event.target.dataset.listingId)
     event.target.parentNode.remove()
-    deleteListing(listing)
+    //debugger
+    deleteListing(listing.id)
   })
   listingCard.appendChild(deleteBtn)
   
@@ -128,6 +130,10 @@ const renderListing = (listing) => {
         this.owner_id = owner_id;
         this.sale_price = sale_price;
         this.state = state;
+      }
+
+      static confirmProperty(){
+        alert('Property was created!')
       }
     }
   
@@ -187,7 +193,7 @@ const showListCard = (listing) => {
     return `<p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price: ${listing.sale_price}</p>
-            <p>Address: ${listing.owner.name}</p>
+            <p>Owner: ${listing.owner.name}</p>
             <p>State: ${listing.owner.phone_number}</p>
             <p>Sale Price: ${listing.owner.real_estate_agent}</p>
 `
@@ -203,6 +209,7 @@ const showListCard = (listing) => {
 
 
 const deleteListing = (listingId) =>{
+  //debugger
   return fetch(`${PROPERTIES_URL}/${listingId}`, {
     method: "delete",
   })
