@@ -1,4 +1,4 @@
-class Owner {
+export default class Owner {
     constructor(name,phone_number,real_estate_agent){
         this.name = name;
         this.phone_number = phone_number;

@@ -1,3 +1,5 @@
+
+
 const BASE_URL = "http://localhost:3000"
 const OWNERS_URL = `${BASE_URL}/owners`
 const PROPERTIES_URL = `${BASE_URL}/properties`
@@ -87,13 +89,13 @@ function OwnerForm(){
 const renderListing = (listing) => {
   const listingCard = document.createElement(`div`)
   listingCard.setAttribute('class','card')
-  listingCard.setAttribute('id','edit')
   listingCard.dataset.id = listing.id
 
   listingCard.innerHTML = showListCard(listing)
   //---Delete Button
   const deleteBtn = document.createElement('button')
-  deleteBtn.setAttribute('id','delete')
+  
+  deleteBtn.setAttribute('class','delete')
   deleteBtn.innerHTML = 'Delete Listing'
   deleteBtn.addEventListener('click', (event)=>{
     // let listingId = parseInt(event.target.dataset.listingId)
@@ -102,7 +104,6 @@ const renderListing = (listing) => {
     deleteListing(listing.id)
   })
   listingCard.appendChild(deleteBtn)
-  
   return listings.appendChild(listingCard)
   //--Edit Button----
  
@@ -132,9 +133,7 @@ const renderListing = (listing) => {
         this.state = state;
       }
 
-      static confirmProperty(){
-        alert('Property was created!')
-      }
+      
     }
   
     const listing = new Property(address, owner_id,sale_price,state)
@@ -190,13 +189,12 @@ getListings().then(listings => {
 // The actual rendering of the listing card
 const showListCard = (listing) => {
   
-    return `<p>Address: ${listing.address}</p>
+    return `<p>Owner: ${listing.owner.name}</p>
+            <p>Address: ${listing.address}</p>
             <p>State: ${listing.state}</p>
             <p>Sale Price: ${listing.sale_price}</p>
-            <p>Owner: ${listing.owner.name}</p>
-            <p>State: ${listing.owner.phone_number}</p>
-            <p>Sale Price: ${listing.owner.real_estate_agent}</p>
-`
+            <p>Agent Name: ${listing.owner.real_estate_agent}</p>
+            <p>Agent #: ${listing.owner.phone_number}</p>`
 // const newlisting = new Property(listing)
 // newlisting.renderListing()
 }

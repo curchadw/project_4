@@ -1,4 +1,4 @@
-class Property {
+export default class Property {
     constructor(property){
         this.id = property.id
         this.address = property.address;

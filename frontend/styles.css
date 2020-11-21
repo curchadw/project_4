@@ -1,6 +1,31 @@
+header{
+    height: 100px;
+    width: 100%;
+    background-color: black;
+    border-bottom: 1px solid black;
+    position: fixed;
+    top:0;
+
+   
+}
+
+.container-fluid{
+    margin-top: 150px;
+    width: 100%;
+
+}
+
+
+
+center{
+    font-size: 2em;
+    color:#0000ff
+}
+
+
 .forms { 
     margin: 0 auto; 
-    width:250px;
+    width:300px;
     }
 
     input{
@@ -29,29 +54,39 @@
     .card {
         /* background-color: #eeeeee; */
         margin-top: 20px;
-        height: 300px;
+        height: 310px;
         width: 200px;
-        padding: 5px;
+        padding: 10px;
         border: 2px solid black;
         border-radius: 10px;
+        font-weight: 600;
+        
         
       }
 
-      .bg-modal{
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.7);
-          position: absolute;
-          top: 0;
+      #listing-form{
+        font-weight: 600;
+
+
+      }
+
+      .submit{
           display: flex;
           justify-content: center;
           align-items: center;
-          border-radius: 4px;
+
       }
 
-      .modal-content{
-          width: 300px;
-          height: 250px;
-          background-color: white;
+      
+      .delete{
+        
+          position: absolute;
+          bottom: 0;
+          text-align: center;
+          margin: 0 auto;
       }
+
+      
+
+      
     
