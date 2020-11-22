@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded',(event) => {
 
 
 ownerForm.addEventListener('submit',(event)=> {
-
 OwnerForm()
 //dropdownMenu()
 ownerForm.reset()
@@ -48,6 +47,8 @@ function OwnerForm(){
   }
 
   const owner = new Owner(name, phone_number,real_estate_agent)
+  alert(`${owner['name'].toString()} was added!`)
+    
   
 
 
@@ -133,13 +134,19 @@ const renderListing = (listing) => {
         this.state = state;
       }
 
-      
-    }
-  
-    const listing = new Property(address, owner_id,sale_price,state)
+      static confirm(){
+        alert(`${this.count()} in database!`)
+      }
 
+    }
     
+    let totalProps = []
+    const listing = new Property(address, owner_id,sale_price,state)
+    totalProps.push(listing)
+    alert(`Listing for ${listing['address'].toString()} was created!`)
     
+
+
     const listObj = {
       method: 'post',
       headers: {
