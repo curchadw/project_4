@@ -12,5 +12,5 @@
 
 ## Running the App
 
-- For now you will need change directories in the the frontend folder and run the http-server command from a terminal, and the backend you will need to open a sperate terminal and cd backend > cd real_estate(don't ask how this mistake was made), and run the rails server.
+- Upon forking the code, you will need to run in the text editor of you choice. Then you will change directories in the the frontend folder and run the http-server command from a terminal, and the backend you will need to open a sperate terminal and cd backend > cd real_estate(don't ask how this mistake was made), and run the rails server.  You will likely need to migrate the evironment if it ask when you try to run the rails server. Be sure to include seeded data for stater data with the rake command.
 
