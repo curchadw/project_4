@@ -46,9 +46,12 @@ function OwnerForm(){
     }
   }
 
+  
+
   const owner = new Owner(name, phone_number,real_estate_agent)
   alert(`${owner['name'].toString()} was added!`)
-    
+
+  
   
 
 
@@ -91,17 +94,14 @@ const renderListing = (listing) => {
   const listingCard = document.createElement(`div`)
   listingCard.setAttribute('class','card')
   listingCard.dataset.id = listing.id
-
-  listingCard.innerHTML = showListCard(listing)
+  listingCard.innerHTML = renderListings()
   //---Delete Button
   const deleteBtn = document.createElement('button')
   
   deleteBtn.setAttribute('class','delete')
   deleteBtn.innerHTML = 'Delete Listing'
   deleteBtn.addEventListener('click', (event)=>{
-    // let listingId = parseInt(event.target.dataset.listingId)
     event.target.parentNode.remove()
-    //debugger
     deleteListing(listing.id)
   })
   listingCard.appendChild(deleteBtn)
@@ -116,8 +116,7 @@ const renderListing = (listing) => {
 //---------------------------------------------------------------------------------------------------
   const listingbtn = document.getElementById('prop_submit')
   const listContainer = document.getElementById('listings')
-  // const ownerId = parseInt(event.target.dataset.ownerId)
-
+ 
   
   function ListForm(){
      let owner_id = document.getElementById('owner_id').value
@@ -126,23 +125,45 @@ const renderListing = (listing) => {
      let sale_price = document.getElementById('sale_price').value
 
     //Property Class-----------------------------------------------------
-     let Property = class Property {
+    const properties = [] 
+    let Property = class Property {
       constructor(address,owner_id,sale_price,state){
         this.address = address;
         this.owner_id = owner_id;
         this.sale_price = sale_price;
         this.state = state;
-      }
+        properties.push(this);
+      };
 
-      static confirm(){
-        alert(`${this.count()} in database!`)
-      }
-
+      renderListings = ()=>{
+        return(`<p>Address: ${this.address}</p>
+                <p>State: ${this.state}</p>
+                <p>Sale Price: ${this.sale_price}</p>`)
     }
+
+    //  renderListings = () => {
+    //     return (
+    //     `<p>Owner: ${this.owner.name}</p>
+    //     <p>Address: ${this.address}</p>
+    //     <p>State: ${this.state}</p>
+    //     <p>Sale Price: $${this.sale_price}</p>
+    //     <p>Agent Name: ${this.owner.real_estate_agent}</p>
+    //     <p>Agent #: ${this.owner.phone_number}</p>`
+    //     )
+    //   }
+      
+      
+
+      static SortProps(){
+        properties.sort((a,b) => a.sale_price < b.sale_price ? -1 : 1)
+      }
+     }
     
-    let totalProps = []
+    
+    
     const listing = new Property(address, owner_id,sale_price,state)
-    totalProps.push(listing)
+    
+    
     alert(`Listing for ${listing['address'].toString()} was created!`)
     
 
@@ -159,9 +180,10 @@ const renderListing = (listing) => {
       fetch(PROPERTIES_URL, listObj)
       .then(res => res.json())
       .then((list_data) => {
-        var new_listing = renderListing(list_data)
+        let new_listing = renderListing(list_data)
         listings.append(new_listing)
-        
+      
+       
         console.log(new_listing)
       })
   } 
@@ -194,17 +216,17 @@ getListings().then(listings => {
 
 
 // The actual rendering of the listing card
-const showListCard = (listing) => {
+// const showListCard = (listing) => {
   
-    return `<p>Owner: ${listing.owner.name}</p>
-            <p>Address: ${listing.address}</p>
-            <p>State: ${listing.state}</p>
-            <p>Sale Price: ${listing.sale_price}</p>
-            <p>Agent Name: ${listing.owner.real_estate_agent}</p>
-            <p>Agent #: ${listing.owner.phone_number}</p>`
+//     return `<p>Owner: ${listing.owner.name}</p>
+//             <p>Address: ${listing.address}</p>
+//             <p>State: ${listing.state}</p>
+//             <p>Sale Price: $${listing.sale_price}</p>
+//             <p>Agent Name: ${listing.owner.real_estate_agent}</p>
+//             <p>Agent #: ${listing.owner.phone_number}</p>`
 // const newlisting = new Property(listing)
 // newlisting.renderListing()
-}
+//}
 
 
 
@@ -220,5 +242,24 @@ const deleteListing = (listingId) =>{
   })
   .then(res => res.json())
 }
+
+
+const sortBtn = document.getElementById('sortBtn')
+const newFeat = document.getElementById('newFeature')
+
+
+
+const sortByPrice = () =>{ 
+ 
+ listings.innerHTML =''
+ let newOrder = inventory.sort((a,b) => a.sale_price < b.sale_price ? -1 : 1)
+ return newOrder
+}
+
+sortBtn.addEventListener('click',(event)=>{
+  event.preventDefault()
+  sortByPrice()
+
+})
 
 
