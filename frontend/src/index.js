@@ -1,3 +1,4 @@
+// const { default: Property } = require("./property.js")
 
 
 const BASE_URL = "http://localhost:3000"
@@ -38,11 +39,13 @@ function OwnerForm(){
   let real_estate_agent = document.getElementById('real_estate_agent').value
  
  //Owner Class-------------------------------------------------------------------------------------------------
+ const owners = []
   let Owner = class Owner {
     constructor(name,phone_number,real_estate_agent){
       this.name = name;
       this.phone_number = phone_number;
       this.real_estate_agent = real_estate_agent;
+      owners.push(this)
     }
   }
 
@@ -94,7 +97,7 @@ const renderListing = (listing) => {
   const listingCard = document.createElement(`div`)
   listingCard.setAttribute('class','card')
   listingCard.dataset.id = listing.id
-  listingCard.innerHTML = renderListings()
+  listingCard.innerHTML = showListCard(listing)
   //---Delete Button
   const deleteBtn = document.createElement('button')
   
@@ -114,10 +117,8 @@ const renderListing = (listing) => {
 
 
 //---------------------------------------------------------------------------------------------------
-  const listingbtn = document.getElementById('prop_submit')
-  const listContainer = document.getElementById('listings')
- 
-  
+  const propListings = [] 
+
   function ListForm(){
      let owner_id = document.getElementById('owner_id').value
      let address = document.getElementById('address').value
@@ -125,45 +126,25 @@ const renderListing = (listing) => {
      let sale_price = document.getElementById('sale_price').value
 
     //Property Class-----------------------------------------------------
-    const properties = [] 
+    
     let Property = class Property {
       constructor(address,owner_id,sale_price,state){
         this.address = address;
         this.owner_id = owner_id;
         this.sale_price = sale_price;
         this.state = state;
-        properties.push(this);
+        propListings.push(this);
       };
 
-      renderListings = ()=>{
-        return(`<p>Address: ${this.address}</p>
-                <p>State: ${this.state}</p>
-                <p>Sale Price: ${this.sale_price}</p>`)
-    }
-
-    //  renderListings = () => {
-    //     return (
-    //     `<p>Owner: ${this.owner.name}</p>
-    //     <p>Address: ${this.address}</p>
-    //     <p>State: ${this.state}</p>
-    //     <p>Sale Price: $${this.sale_price}</p>
-    //     <p>Agent Name: ${this.owner.real_estate_agent}</p>
-    //     <p>Agent #: ${this.owner.phone_number}</p>`
-    //     )
-    //   }
-      
-      
-
-      static SortProps(){
-        properties.sort((a,b) => a.sale_price < b.sale_price ? -1 : 1)
-      }
+      // static SortProps(){
+      //   propListings.sort((a,b) => a.sale_price < b.sale_price ? -1 : 1)
+      // }
      }
     
     
     
     const listing = new Property(address, owner_id,sale_price,state)
-    
-    
+    // propListings.push(listing)
     alert(`Listing for ${listing['address'].toString()} was created!`)
     
 
@@ -216,17 +197,16 @@ getListings().then(listings => {
 
 
 // The actual rendering of the listing card
-// const showListCard = (listing) => {
+const showListCard = (listing) => {
   
-//     return `<p>Owner: ${listing.owner.name}</p>
-//             <p>Address: ${listing.address}</p>
-//             <p>State: ${listing.state}</p>
-//             <p>Sale Price: $${listing.sale_price}</p>
-//             <p>Agent Name: ${listing.owner.real_estate_agent}</p>
-//             <p>Agent #: ${listing.owner.phone_number}</p>`
-// const newlisting = new Property(listing)
-// newlisting.renderListing()
-//}
+    return `<p>Owner: ${listing.owner.name}</p>
+            <p>Address: ${listing.address}</p>
+            <p>State: ${listing.state}</p>
+            <p>Sale Price: $${listing.sale_price}</p>
+            <p>Agent Name: ${listing.owner.real_estate_agent}</p>
+            <p>Agent #: ${listing.owner.phone_number}</p>`
+
+}
 
 
 
@@ -250,16 +230,15 @@ const newFeat = document.getElementById('newFeature')
 
 
 const sortByPrice = () =>{ 
- 
  listings.innerHTML =''
- let newOrder = inventory.sort((a,b) => a.sale_price < b.sale_price ? -1 : 1)
- return newOrder
+ fetch(PROPERTIES_URL)
+ .then(res => res.json())
+ .then(listings =>{
+ listings.sort((a,b) => a.sale_price < b.sale_price ? 1 : -1)
+ listings.innerHTML = listings.map(prop => renderListing(prop))
+ return listings
+  })
 }
 
-sortBtn.addEventListener('click',(event)=>{
-  event.preventDefault()
-  sortByPrice()
-
-})
-
+sortBtn.addEventListener('click',sortByPrice)
 
