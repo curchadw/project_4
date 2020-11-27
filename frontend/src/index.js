@@ -229,12 +229,13 @@ const newFeat = document.getElementById('newFeature')
 
 
 
-const sortByPrice = () =>{ 
+const sortByPrice = (event) =>{ 
+ event.preventDefault(); 
  listings.innerHTML =''
  fetch(PROPERTIES_URL)
  .then(res => res.json())
  .then(listings =>{
- listings.sort((a,b) => a.sale_price < b.sale_price ? 1 : -1)
+ listings.sort((a,b) => parseInt(a.sale_price) < parseInt(b.sale_price) ? 1 : -1)
  listings.innerHTML = listings.map(prop => renderListing(prop))
  return listings
   })
